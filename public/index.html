@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<meta name="description" content="Applicazione calcolo lotto economico di acquisto">
+	<meta name="author" content="Andrea D'Orazio">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--Foglio di stile-->
+	<link rel="stylesheet" href="/css/stile.css">
+	<!--Libreria javascritp-->
+	<script src="/js/script.js"></script>
+    <title>EOQ - Calcolo lotto economico di acquisto</title>
+ </head>
+<body>
+
+    <!-- Menu di navigazione -->
+    <div class="navbar">        
+        <div class="navbar-menu">
+            <a href="index.html">Home</a>
+            <a href="#" onclick="showParams()">Impostazioni</a>
+            <a href="#" onclick="getEOQ()">Strumenti</a>
+        </div>
+		<div class="navbar-title">EOQ - Calcolo Lotto Economico di Acquisto</div>
+    </div>
+
+    <!-- Contenuto principale -->
+    <div id="main" class="content">        
+        <p>Applicazione per il calcolo del lotto economico di acquisto - EOQ</p>
+		<img class="home-img" src="images/home_img.png"/>
+		<div id="parametri" class="info">
+			Calcolo del lotto economico di acquisto, dal menù utilizzare il pulsante Strumenti per
+			inserire i parametri ed eseguire il calcolo.
+		</div>
+		<div id="result"></div>		
+    </div>
+	<div id="error"></div>
+
+</body>
+</html>

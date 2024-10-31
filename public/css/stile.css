@@ -1,0 +1,70 @@
+/* Foglio di stile pagina html - web application EOQ Lotto economico di acquisto */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7fcf8;
+        }
+
+        /* Stile per il menu orizzontale */
+        .navbar {
+            display: flex; 
+			justify-content: space-between;
+            background-color: #242952;
+            padding: 1rem;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s;
+        }
+		
+		.navbar-title {
+			color: white;
+			font-size: 1.5rem;
+		}
+		
+		.navbar-menu a {
+		    color: white;
+			text-decoration: none;
+			margin-left: 15px;			
+			font-size: 1.1rem;
+		}
+		
+        .navbar a:hover {
+            background-color: #323a75;
+            border-radius: 2px;
+        }
+
+        /* Contenuto principale */
+        .content {
+            padding: 2rem;
+        }
+		
+		
+		/*Riquadro home page*/
+		.info {
+			background-color: lightgrey;
+			width: 500px;
+			border: 1px solid #242952;
+			padding: 3px;
+			margin: 0 auto;
+		}
+		
+		.home-img{
+			border: 1px solid grey;
+			padding: 3px;
+			opacity: 0.4;
+			display: flex;
+			justify-content: center;
+			align-items: center; 
+			margin: 0 auto;
+		}
+
+        /* Titolo principale */
+        h1 {
+            color: #fff;		    
+            text-align: left;
+        }
