@@ -1,0 +1,20 @@
+{
+  "name": "eoq_f",
+  "version": "1.0.0",
+  "description": "Applicazione per il calcolo del lotto economico di acquisto EOQ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Andrea D'Orazio - L-31 (0312300107)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adora0/eoq_f.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adora0/eoq_f/issues"
+  },
+  "homepage": "https://github.com/adora0/eoq_f#readme"
+}
