@@ -11,15 +11,15 @@
 	- error. evventuale errore nel calcolo o nei parametri inviati
 */
         async function getEOQ() {		
-            try {
-			    
-                const response = await fetch('/elab',{
+            try {			    
+                await fetch('/elab',{
 					method:"POST"					
-					});
-                const data = await response.json();
-                
-                // Aggiorna la parte della pagina con il nuovo contenuto
-                document.getElementById('result').innerHTML = data;
+					}).then(function(response){
+                        return response.json();
+                    }).then(function (data){
+                        // Aggiorna la parte della pagina con il nuovo contenuto
+                        document.getElementById('result').innerHTML = data;
+                    });               
             } catch (error) {
                 document.getElementById('error').innerHTML='Errore durante il richiamo della funzione:'+ error;
             }
@@ -29,18 +29,18 @@
   Funzione che richiama la routing path /params per la visualizzazione
   e la possibilità di inserimento dei parametri per il calcolo dell'EOQ.
   Valore restituito:
-  file html:
+  file html: params.html file con i campi da compilare per il calcolo dell'EOQ
 */
     async function showParams() {		
-            try {
-			    
-                const response = await fetch('/params',{
-					method:"POST"					
-					});
-                const data = await response;                
-                // Aggiorna la parte della pagina con il nuovo contenuto
-				console.log(data.text());
-                document.getElementById('main').innerHTML=data.text;
+            try {		                
+                await fetch('/params',{
+					    method:"POST"					
+					}).then(function(response) {
+                        return response.text();
+                    }).then(function(data){
+                        //Aggiorna la parte della pagina con il nuovo contenuto
+                        document.getElementById('main').innerHTML=data;
+                    });
             } catch (error) {
 				console.log(error);
                 document.getElementById('error').innerHTML='Errore durante il richiamo della funzione';

@@ -22,9 +22,12 @@ const app = express();
 /*porta di ascolto*/
 const port = 3000;
 
-/*funzione per la stampa del log nella console di nodejs*/
-const log = function(text) {
-	return console.log(new Date().toLocaleTimeString() + ' ' + text) ;
+/*funzione per la stampa del log nella console di nodejs
+ Parametri:
+ text, testo del messaggio
+ tipo, tipologia messaggio (info, warn, errore)*/
+const log = function(text, tipo) {
+	return console.log('[' + tipo +'] ' + new Date().toLocaleTimeString() + ' - ' + text) ;
 }
 
 /*imposto il folder public con le parti statiche dell'applicazione*/
@@ -34,17 +37,21 @@ app.use(express.static('public'));
 /*endpoint homepage applicazione - index.html*/
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public' , 'index.html'));
+    log('Inviato file index.html','INFO');
 });
 
 /*endpoint visualizzazione input parametri*/
 app.post('/params', (req, res) => {
-	fs.readFile(path.join(__dirname, 'public' , 'params.html') , 'utf8', (err, data) => {
+	/*fs.readFile(path.join(__dirname, 'public' , 'params.html') , 'utf8', (err, data) => {
         if (err) {
             console.error('Errore nella lettura del file:', err);
             return res.status(500).send('Errore nel caricamento del contenuto');
         }		
-        res.send(data);    
-	});
+        res.sendFile(data);    
+	});*/
+    res.sendFile(path.join(__dirname, 'public' , 'params.html'));
+    log('Inviato file params.html','INFO');
+   
 });
 
 /*endpoint di ascolto*/
@@ -69,10 +76,11 @@ app.post('/elab', (req, res) => {
         res.json(dataToSend);
     });
 
+    log('Richiesta elaborazione EOQ', 'INFO')
 });
 
 app.listen(port, () => {
-    log(`Server web in ascolto sulla porta:${port}\npath: ${__dirname}`);
+    log(`Server web in ascolto sulla porta:${port}\npath: ${__dirname}`,'INFO');
 });
 
 

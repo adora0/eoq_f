@@ -1,7 +1,18 @@
 
 <div id="params">
-
-<input id="param_d" label="Domanda"></>
-<input id="param_c" label="Costo unitario"></>
-
+    <form id="form_params" action="" method="post">
+        <h4>Dati per il calcolo dell'EOQ</h4>
+        <label for="param_d">Domanda annua:</label>
+        <input type="number" id="param_d" min="1"></>
+        <br /><br />
+        <label for="param_c">Costo unitario</label>
+        <input  type="number" id="param_c" min="0"></>
+        <br /><br />
+        <label for="param_s">Costo emissione singolo ordine</label>
+        <input  type="number" id="param_s" min="0"></>
+        <br /><br />
+        <label for="param_h">Costo annuo mantenimento singolo prodotto</label>
+        <input  type="number" id="param_h" min="0"></><br>
+        <input type="submit" value="Calcola"/>
+    </form>
 </div>
