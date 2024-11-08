@@ -39,7 +39,7 @@
                         return response.text();
                     }).then(function(data){
                         //Aggiorna la parte della pagina con il nuovo contenuto
-                        document.getElementById('main').innerHTML=data;
+                        document.getElementById('parametri').innerHTML=data;
                     });
             } catch (error) {
 				console.log(error);

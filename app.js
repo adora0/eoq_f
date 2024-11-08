@@ -66,7 +66,7 @@ app.post('/elab', (req, res) => {
     const python = spawn('python', [path.join(__dirname,'mod','core.py'), firstNum , secondNum]);
     // collect data from script
     python.stdout.on('data', function (data) {
-        log('Inizio esecuzione script python');
+        log('Inizio esecuzione script python', 'INFO');
         dataToSend = data.toString();
     });
     // in close event we are sure that stream from child process is closed
@@ -80,7 +80,7 @@ app.post('/elab', (req, res) => {
 });
 
 app.listen(port, () => {
-    log(`Server web in ascolto sulla porta:${port}\npath: ${__dirname}`,'INFO');
+    log(`Server web in ascolto sulla porta:${port}`,'INFO');
 });
 
 

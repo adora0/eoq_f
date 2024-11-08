@@ -1,39 +1,55 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-	<meta name="description" content="Applicazione calcolo lotto economico di acquisto">
-	<meta name="author" content="Andrea D'Orazio">
+    <meta name="description" content="Applicazione calcolo lotto economico di acquisto">
+    <meta name="author" content="Andrea D'Orazio">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!--Foglio di stile-->
-	<link rel="stylesheet" href="/css/stile.css">
-	<!--Libreria javascritp-->
-	<script src="/js/script.js"></script>
+    <!--Foglio di stile-->
+    <link rel="stylesheet" href="/css/stile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!--Libreria javascritp-->
+    <script src="/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <title>EOQ - Calcolo lotto economico di acquisto</title>
- </head>
+</head>
+
 <body>
 
     <!-- Menu di navigazione -->
-    <div class="navbar">        
+    <div class="navbar">
         <div class="navbar-menu">
             <a href="index.html">Home</a>
             <a href="#" onclick="showParams()">Impostazioni</a>
             <a href="#" onclick="getEOQ()">Strumenti</a>
         </div>
-		<div class="navbar-title">EOQ - Calcolo Lotto Economico di Acquisto</div>
+        <div class="navbar-title">EOQ - Calcolo Lotto Economico di Acquisto</div>
     </div>
 
     <!-- Contenuto principale -->
-    <div id="main" class="content">        
-        <p>Applicazione per il calcolo del lotto economico di acquisto - EOQ</p>
-		<img class="home-img" src="images/home_img.png"/>
-		<div id="parametri" class="info">
-			Calcolo del lotto economico di acquisto, dal menù utilizzare il pulsante Strumenti per
-			inserire i parametri ed eseguire il calcolo.
-		</div>
-		<div id="result"></div>		
+    <div id="main" class="content">
+        <div class="left">
+            <div id="parametri" class="box">
+            </div>
+            <div id="result"></div>
+        </div>
+        <div class="right">
+            <div class="box">
+                <p>
+                    <b>Applicazione per il calcolo del lotto economico di acquisto - EOQ</b>
+                </p>
+                <p>Premere su Impostazioni per inserire i parametri di calcolo.
+                    <br />
+                </p>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <div id="error"></div>
     </div>
-	<div id="error"></div>
-
+    <div class="footer"><p><cite>Project work Traccia 1.1 Andrea D'Orazio a.a. 2024/2025</cite></div>
 </body>
+
 </html>

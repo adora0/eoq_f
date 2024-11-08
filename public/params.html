@@ -1,18 +1,24 @@
 
-<div id="params">
-    <form id="form_params" action="" method="post">
-        <h4>Dati per il calcolo dell'EOQ</h4>
-        <label for="param_d">Domanda annua:</label>
-        <input type="number" id="param_d" min="1"></>
-        <br /><br />
-        <label for="param_c">Costo unitario</label>
+<div id="params" class="form-group">    
+        <h4>Dati per il calcolo dell'EOQ</h4><br/>
+        <label for="param_d" class="form-label" aria-describedby="dAiuto">Domanda annua:</label>
+        <input type="number" id="param_d" min="1" disabled></>
+        <input type="button" value="Genera dati random"/>
+        <input type="button" value="Carica file"/>
+        <div id="dAiuto" class="form-text">We'll never share your email with anyone else.</div>        
+        
+        <br />
+        <label for="param_c" class="form-label" aria-describedby="cAiuto">Costo unitario</label>
         <input  type="number" id="param_c" min="0"></>
+        <div id="cAiuto" class="form-text">We'll never share your email with anyone else.</div>
         <br /><br />
-        <label for="param_s">Costo emissione singolo ordine</label>
-        <input  type="number" id="param_s" min="0"></>
+        <label for="param_s" class="form-label" aria-describedby="sAiuto">Costo emissione singolo ordine</label>
+        <input  type="number" id="param_s" min="0" class="input-group-sm"></>
+        <div id="sAiuto" class="form-text">We'll never share your email with anyone else.</div> 
         <br /><br />
-        <label for="param_h">Costo annuo mantenimento singolo prodotto</label>
+        <label for="param_h" class="form-label" aria-describedby="hAiuto">Costo annuo mantenimento singolo prodotto</label>
         <input  type="number" id="param_h" min="0"></><br>
-        <input type="submit" value="Calcola"/>
-    </form>
+        <div id="hAiuto" class="form-text">We'll never share your email with anyone else.</div> 
+        <br />
+        <input type="submit" value="Calcola"/>    
 </div>
