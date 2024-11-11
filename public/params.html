@@ -1,24 +1,34 @@
+<div id="params" class="form-group">
+        <h4>Dati per il calcolo dell'EOQ</h4><br />Dati domanda - D
+        <div class="form-check checked">
+                <input type="radio" name="radioDati" id="radioDati1" onclick="showButton('btnDatiRandom')">
+                <label for="radioDati1">Autogenerati (test)</label>
+                <input type="button" id="btnDatiRandom" value="Genera dati random" class="invisible" onclick="generaDati()"/>
+        </div>
+        <div class="form-check">
+                <input type="radio" name="radioDati" id="radioDati2" onclick="showButton('btnFileDati')"">
+                <label for="radioDati2">da File</label>
+                <input type="file" id="btnFileDati" value="Carica file" class="invisible"/>
+        </div>  
+        <div id="dAiuto" class="form-text">Inserire la domanda annua, la domanda annua può essere generata in automatico
+                oppure caricata con un file esterno.<br />File supportato .csv con delimitatore ';' di due variabili
+                [periodo];[valore]
+        </div>
 
-<div id="params" class="form-group">    
-        <h4>Dati per il calcolo dell'EOQ</h4><br/>
-        <label for="param_d" class="form-label" aria-describedby="dAiuto">Domanda annua:</label>
-        <input type="number" id="param_d" min="1" disabled></>
-        <input type="button" value="Genera dati random"/>
-        <input type="button" value="Carica file"/>
-        <div id="dAiuto" class="form-text">We'll never share your email with anyone else.</div>        
-        
         <br />
-        <label for="param_c" class="form-label" aria-describedby="cAiuto">Costo unitario</label>
-        <input  type="number" id="param_c" min="0"></>
-        <div id="cAiuto" class="form-text">We'll never share your email with anyone else.</div>
+        <label for="paramC" class="form-label" aria-describedby="cAiuto">Costo unitario - C</label>
+        <input type="number" id="paramC" name="paramC" min="0"></>
+        <div id="cAiuto" class="form-text">Inserire il costo di acquisto del prodotto in euro</div>
         <br /><br />
-        <label for="param_s" class="form-label" aria-describedby="sAiuto">Costo emissione singolo ordine</label>
-        <input  type="number" id="param_s" min="0" class="input-group-sm"></>
-        <div id="sAiuto" class="form-text">We'll never share your email with anyone else.</div> 
+        <label for="paramS" class="form-label" aria-describedby="sAiuto">Costo emissione singolo ordine - S</label>
+        <input type="number" id="paramS" min="0" class="input-group-sm"></>
+        <div id="sAiuto" class="form-text">Inserire il costo complessivo per l'emmissione di un ordine</div>
         <br /><br />
-        <label for="param_h" class="form-label" aria-describedby="hAiuto">Costo annuo mantenimento singolo prodotto</label>
-        <input  type="number" id="param_h" min="0"></><br>
-        <div id="hAiuto" class="form-text">We'll never share your email with anyone else.</div> 
+        <label for="paramH" class="form-label" aria-describedby="hAiuto">Costo annuo mantenimento singolo
+                prodotto - I </label>
+        <input type="number" id="paramH" min="0"></><br>
+        <div id="hAiuto" class="form-text">Inserire la percentuale di costo per il mantenimento annuo di un prodotto.
+        </div>
         <br />
-        <input type="submit" value="Calcola"/>    
+        <input type="submit" value="Calcola EOQ" id="btnCalcolaEOQ" />
 </div>

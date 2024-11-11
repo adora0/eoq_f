@@ -7,8 +7,9 @@
  * Corso di Laura: Informatica per le Aziende Digitali L-31 a.a. 2024/2025
  * repository git : https://github.com/adora0/eoq_f/
  * Descrizione: Applicazione javascript, utilizza NodeJS per l'esecuzione 
-   di un server web minimale che istanzia un'applicazione web
-   per il calcolo del lotto economico di acquisto
+   di un server web minimale che implementa un'applicazione web
+   per il calcolo del lotto economico di acquisto.
+   Le elaborazioni di tipo matematico/statistico sono sviluppate in Python
  ************************************************************************/
  
 /*librerie utilizzate per l'applicazione server*/ 
@@ -40,7 +41,9 @@ app.get('/', (req, res) => {
     log('Inviato file index.html','INFO');
 });
 
-/*endpoint visualizzazione input parametri*/
+/*endpoint /params
+    invio di frammento codice html -file params.html-
+*/
 app.post('/params', (req, res) => {
 	/*fs.readFile(path.join(__dirname, 'public' , 'params.html') , 'utf8', (err, data) => {
         if (err) {
@@ -54,7 +57,9 @@ app.post('/params', (req, res) => {
    
 });
 
-/*endpoint di ascolto*/
+/*endpoint /elab
+    richiamo delle funzioni Python per il calcolo dell'EOQ
+*/
 app.post('/elab', (req, res) => {
 
     const firstNum = 4;
@@ -79,6 +84,8 @@ app.post('/elab', (req, res) => {
     log('Richiesta elaborazione EOQ', 'INFO')
 });
 
+
+/*inizio ascolto del server su porta 3000*/
 app.listen(port, () => {
     log(`Server web in ascolto sulla porta:${port}`,'INFO');
 });
