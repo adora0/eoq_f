@@ -40,7 +40,7 @@ body {
 .navbar-menu a {
     color: white;
     text-decoration: none;
-    margin-left: 15px;			
+    		
     font-size: 1.1rem;
 }
 
@@ -50,33 +50,9 @@ body {
 }
 
 /* Contenuto principale */
-
-.left{
-    float: left;      
-    width: 75%;                
-}
-.right{
-    float: left;
-    width: 25%;        
-    padding-left: 20px;
-}
-
 .box {   
     padding: 20px;
     margin-top: 20px;    
     }
-
-    /* Clear floats after the columns */
-.content:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
   
-  .footer {
-    border-top:1px solid;
-    border-color: gray;
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-align: center;
-  }
+  
