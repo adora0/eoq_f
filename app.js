@@ -84,6 +84,21 @@ app.post('/elab', (req, res) => {
     log('Richiesta elaborazione EOQ', 'INFO')
 });
 
+/*endpoint /datidomanda
+Genera valori casuali per una serie storica
+Viene utilizzata la funzione javascript Math.random() che genera un valore decimale compreso tra 0 e 1.
+*/
+app.post('/datidomanda',(req,res) => {   
+     /*var periodi = Array.from({ length: 20 }, (_, i) => i + 1);*/
+    /*genero un valore di base random tra 100 e 100.000 
+      rappresenta la dimensione base della domanda*/
+    let base = Math.round(Math.random() * (100000 - 1000) + 1000);    
+    /*genero un array di indici tra -1 e 1 che rappresentano la variazione della domanda in serie storica*/
+    var indici = Array.from({length: 20}, (_,i) => Math.random() * (Math.random() < 0.5 ? -1 : 1));
+    /*genero l'array dei dati in serie storica con una variazione della base al massimo di un 10%*/ 
+    let dati= indici.map(elem => Math.round(base * (10 -  elem) / 10));
+    res.send(dati);
+});
 
 /*inizio ascolto del server su porta 3000*/
 app.listen(port, () => {

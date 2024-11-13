@@ -21,7 +21,7 @@ async function getEOQ() {
             document.getElementById('result').innerHTML = data;
         });
     } catch (error) {
-        document.getElementById('error').innerHTML = 'Errore durante il richiamo della funzione:' + error;
+        document.getElementById('error').innerHTML = 'Errore durante il calcolo EOQ:' + error;
     }
 }
 
@@ -41,28 +41,42 @@ async function showParams() {
             //Aggiorna la parte della pagina con il nuovo contenuto
             document.getElementById('parametri').innerHTML = data;
         });
-    } catch (error) {
-        console.log(error);
-        document.getElementById('error').innerHTML = 'Errore durante il richiamo della funzione';
+    } catch (error) {        
+        document.getElementById('error').innerHTML = 'Errore durante il richiamo del form parametri' + error;
     }
 }
 
 /* generaDati
    Funzione per la generazione di una serie storica casuale.
-   Viene utilizzata la funzione javascript Math.random() che genera un valore decimale compreso tra 0 e 1.
+   Richiama l'endpoint /datidomanda per la generazione di una serie storica casuale.
 */
-function generaDati() {    
-    /*var periodi = Array.from({ length: 20 }, (_, i) => i + 1);*/
-    /*genero un valore di base random tra 100 e 100.000 
-      rappresenta la dimensione base della domanda*/
-    var base = Math.round(Math.random() * (100000 - 1000) + 1000);
-
-    /*genero un array di indici tra -1 e 1 che rappresentano la variazione della domanda in serie storica*/
-    var indici = Array.from({length: 20}, (_,i) => Math.random() * (Math.random() < 0.5 ? -1 : 1));
-    /*genero l'array dei dati in serie storica con una variazione della base al massimo di un 10%*/ 
-    let dati= indici.map(elem => Math.round(base * (10 -  elem) / 10));
-    showError(dati);
-    return dati;
+async function generaDati() {    
+    try {
+        await fetch('/datidomanda', {
+            method: "POST"
+        }).then(function (response) {
+            return response.text();
+        }).then(function (data) {            
+            //Aggiorna la porzione di pagina con il nuovo contenuto            
+            var tabella=document.getElementById('tabellaDati');
+            tabella.innerHTML='';   
+            let datiDomanda = JSON.parse(data);  
+            let i=1;
+            datiDomanda.forEach((val) => {
+                let row = document.createElement('tr');             
+                  let cell = document.createElement('td');
+                  cell.appendChild(document.createTextNode("P"+ i));
+                  row.appendChild(cell);                           
+                  cell=document.createElement('td');
+                  cell.appendChild(document.createTextNode(val));
+                  row.appendChild(cell);  
+                tabella.appendChild(row);
+                i=i+1;
+              });
+        });
+    } catch (error) {             
+        document.getElementById('error').innerHTML = 'Errore durante la generazione di dati'+ error;
+    } 
 }
 
 /*showButton 
@@ -81,4 +95,3 @@ function showError(messaggio){
     alert(messaggio);   
 }
 
-document.getElementById()
