@@ -54,4 +54,6 @@ body {
     padding: 20px;
     margin-top: 20px;    
 }
-  
+td.small.text-right {
+    text-align:right;
+}

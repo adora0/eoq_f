@@ -39,7 +39,7 @@ async function showParams() {
             return response.text();
         }).then(function (data) {
             //Aggiorna la parte della pagina con il nuovo contenuto
-            document.getElementById('parametri').innerHTML = data;
+            document.getElementById('main').innerHTML = data;
         });
     } catch (error) {        
         document.getElementById('error').innerHTML = 'Errore durante il richiamo del form parametri' + error;
@@ -66,9 +66,11 @@ async function generaDati() {
                 let row = document.createElement('tr');             
                   let cell = document.createElement('td');
                   cell.appendChild(document.createTextNode("P"+ i));
+                  cell.className="small";
                   row.appendChild(cell);                           
                   cell=document.createElement('td');
-                  cell.appendChild(document.createTextNode(val));
+                  cell.appendChild(document.createTextNode(val.toLocaleString('it-IT')));
+                  cell.classList.add("small", "text-right");
                   row.appendChild(cell);  
                 tabella.appendChild(row);
                 i=i+1;
