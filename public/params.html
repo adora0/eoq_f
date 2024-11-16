@@ -1,7 +1,7 @@
 <div id="params" class="form-group row">
         <div class="col col-8">
                 <h4>Dati per il calcolo dell'EOQ</h4>
-                <br />Dati domanda (D)
+                <br />Modalità inserimento dati
                 <div class="form-check checked">
                         <input type="radio" name="radioDati" id="radioDati1" onclick="showButton('btnDatiRandom')">
                         <label for="radioDati1">Autogenerati (test)</label>
@@ -13,6 +13,11 @@
                         <label for="radioDati2">da File</label>
                         <input type="file" id="btnFileDati" value="Carica file" class="invisible" />
                 </div>
+                <div class="form-check">
+                        <input type="radio" name="radioDati" id="radioDati3" onclick="showButton('btnDatiInserimento')">
+                        <label for="radioDati3">Inserimento manuale</label>
+                        <input type="button" id="btnDatiInserimento" value="Aggiungi dati" class="invisible" onclick="addRow()"/>
+                </div>
                 <div id="dAiuto" class="form-text">Inserire la domanda annua, la domanda annua può essere generata in
                         automatico
                         oppure caricata con un file esterno.<br />File supportato .csv con delimitatore ';' di due
@@ -20,37 +25,45 @@
                         [periodo];[valore]
                 </div>
 
-                <br />
-                <label for="paramC" class="form-label" aria-describedby="cAiuto">Costo unitario (C)</label>
-                <input type="number" id="paramC" name="paramC " min="0"></>
-                <div id="cAiuto " class="form-text">Inserire il costo di acquisto del prodotto in euro</div>
-                <br /><br />
-                <label for="paramS" class="form-label" aria-describedby="sAiuto">Costo emissione singolo ordine
-                        (S)</label>
-                <input type="number" id="paramS " min="0" class="input-group-sm"></>
-                <div id="sAiuto" class="form-text">Inserire il costo complessivo per l'emmissione di un ordine</div>
-                <br /><br />
-                <label for="paramH" class="form-label" aria-describedby="hAiuto">Costo annuo mantenimento singolo
-                        prodotto - I </label>
-                <input type="number" id="paramH" min="0"></><br>
-                <div id="hAiuto" class="form-text ">Inserire la percentuale di costo per il mantenimento annuo di un
-                        prodotto.
-                </div>
-                <br />
-                <input type="submit" value="Calcola EOQ " id="btnCalcolaEOQ " />
-        </div>
-        <div class="col col-3">Dati domanda annua
                 <div id="datiD">
-                        <table class="table">
+                        <table class="table table-hover table-sm table-responsive table-bordered">
                                 <thead>
                                         <tr>
                                                 <th scope="col">Periodo</th>
-                                                <th scope="col">Valore domanda</th>
+                                                <th scope="col">Costo unitario<br /><b>(C)</b></th>
+                                                <th scope="col">Costo setup ordine <br /><b>(S)</b></th>
+                                                <th scope="col">Costo mantenimento <br /><b>(C)</b></th>
+                                                <th scope="col">Valore domanda <br /><b>(D)</b></th>
+                                                <th scope="col"><b>EOQ</b></th>
                                         </tr>
                                 </thead>
-                                <tbody id="tabellaDati">
+                                <tbody id="tabellaDati" class="border">
                                 </tbody>
                         </table>
                 </div>
+                <input type="submit" value="Calcola EOQ " id="btnCalcolaEOQ " />
+        </div>
+        <div class="col col-3">
+                
         </div>
 </div>
+
+
+<!---
+<br />
+<label for="paramC" class="form-label" aria-describedby="cAiuto">Costo unitario (C)</label>
+<input type="number" id="paramC" name="paramC " min="0"></>
+<div id="cAiuto " class="form-text">Inserire il costo di acquisto del prodotto in euro</div>
+<br /><br />
+<label for="paramS" class="form-label" aria-describedby="sAiuto">Costo emissione singolo ordine
+        (S)</label>
+<input type="number" id="paramS " min="0" class="input-group-sm"></>
+<div id="sAiuto" class="form-text">Inserire il costo complessivo per l'emmissione di un ordine</div>
+<br /><br />
+<label for="paramH" class="form-label" aria-describedby="hAiuto">Costo annuo mantenimento singolo
+        prodotto - I </label>
+<input type="number" id="paramH" min="0"></><br>
+<div id="hAiuto" class="form-text ">Inserire la percentuale di costo per il mantenimento annuo di un
+        prodotto.
+</div>
+<br />

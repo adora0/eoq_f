@@ -21,7 +21,7 @@ async function getEOQ() {
             document.getElementById('result').innerHTML = data;
         });
     } catch (error) {
-        document.getElementById('error').innerHTML = 'Errore durante il calcolo EOQ:' + error;
+         showAlert('Errore', 'Errore durante il calcolo EOQ:' + error);
     }
 }
 
@@ -42,7 +42,7 @@ async function showParams() {
             document.getElementById('main').innerHTML = data;
         });
     } catch (error) {        
-        document.getElementById('error').innerHTML = 'Errore durante il richiamo del form parametri' + error;
+         showAlert('Errore','Errore durante il richiamo del form parametri' + error);
     }
 }
 
@@ -56,13 +56,15 @@ async function generaDati() {
             method: "POST"
         }).then(function (response) {
             return response.text();
-        }).then(function (data) {            
+        }).then(function (data) {           
+           
             //Aggiorna la porzione di pagina con il nuovo contenuto            
             var tabella=document.getElementById('tabellaDati');
             tabella.innerHTML='';   
             let datiDomanda = JSON.parse(data);  
-            let i=1;
-            datiDomanda.forEach((val) => {
+            let i=1;    
+            addRow();        
+          /*  datiDomanda.forEach((val) => {
                 let row = document.createElement('tr');             
                   let cell = document.createElement('td');
                   cell.appendChild(document.createTextNode("P"+ i));
@@ -74,13 +76,41 @@ async function generaDati() {
                   row.appendChild(cell);  
                 tabella.appendChild(row);
                 i=i+1;
-              });
+              });*/
         });
     } catch (error) {             
-        document.getElementById('error').innerHTML = 'Errore durante la generazione di dati'+ error;
+         showAlert('Errore','Errore durante la generazione di dati'+ error);
     } 
 }
 
+
+function addRow(){
+    let tabella=document.getElementById('tabellaDati');
+    let id = tabella.rows.length;
+    let row = tabella.insertRow();
+    
+    let cellRiga = row.insertCell(0).innerHTML=id+1;
+    let cellPeriodo = row.insertCell(1);
+    let cellCosto = row.insertCell(2);
+    let cellSetup = row.insertCell(3);
+    let cellMantenimento = row.insertCell(4);
+    let cellDomanda = row.insertCell(5);
+    let cellEOQ = row.insertCell(6);
+    let cellRemove = row.insertCell(7);
+
+    cellPeriodo.contentEditable = "true";
+    cellCosto.contentEditable = "true";
+    cellSetup.contentEditable = "true";
+    cellMantenimento.contentEditable = "true";
+    cellDomanda.contentEditable = "true";    
+    cellRemove.innerHTML="<button type='button' class='btn btn-outline-danger' onclick='removeRow(" + row.rowIndex+ ")'>X</button>";
+}
+
+
+function removeRow(row){
+    let tabella=document.getElementById('tabellaDati');
+    tabella.deleteRow(row.rowIndex);
+}
 /*showButton 
     Funzione per la visualizazione dinamica del form inserimento dati, dati dell domanda D, se generati 
     automaticamente o inseriti tramite file csv.
@@ -89,11 +119,24 @@ async function generaDati() {
 */
 function showButton(btnID) {
     document.getElementById(btnID).className = "visible";
-    if (btnID == "btnFileDati") document.getElementById("btnDatiRandom").className = "invisible";
-    if (btnID == "btnDatiRandom") document.getElementById("btnFileDati").className = "invisible";
+    (btnID != "btnFileDati") ? document.getElementById("btnFileDati").className = "invisible" 
+        : document.getElementById("btnFileDati").className = "visible" ;
+    (btnID != "btnDatiRandom") ? document.getElementById("btnDatiRandom").className = "invisible"
+        : document.getElementById("btnDatiRandom").className = "visible" ;
+    (btnID != "btnDatiInserimento") ? document.getElementById("btnDatiInserimento").className = "invisible"
+        : document.getElementById("btnDatiInserimento").className = "visible" ;
 }
 
-function showError(messaggio){
-    alert(messaggio);   
+/*showAlert
+    Funzione per la visualizzazione di un messaggio di alert di tipo modal
+    Parametri:
+    - titolo, titolo dell'alert;
+    - messaggio, corpo del messaggio di alert.
+*/
+function showAlert(titolo, messaggio){
+    var modal = new bootstrap.Modal(document.getElementById('alert')); 
+    modal.show();
+    document.getElementById("alertTitolo").innerHTML=titolo;
+    document.getElementById("alertMessaggio").innerHTML=messaggio;
 }
 
