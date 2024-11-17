@@ -85,21 +85,38 @@ app.post('/elab', (req, res) => {
 });
 
 /*endpoint /datidomanda
-Genera valori casuali per una serie storica
+Genera una serie storica di valori casuali per i componenti del calcolo
 Viene utilizzata la funzione javascript Math.random() che genera un valore decimale compreso tra 0 e 1.
+Valore restituito:
+ - dati, oggetto json con gli array dei valori casuali in serie storica di Costo unitario, Costo setup, costo mantenimento, Domanda
 */
 app.post('/datidomanda',(req,res) => {   
-     /*var periodi = Array.from({ length: 20 }, (_, i) => i + 1);*/
-    /*genero un valore di base random tra 100 e 100.000 
-      rappresenta la dimensione base della domanda*/
-    let base = Math.round(Math.random() * (100000 - 1000) + 1000);    
+    /*genero valori di base random per le varie componenti di calcolo*/
+    log('datidomanda','INFO');
+    let dati = [];
+    let maxVariazione = 0.1;    
+    let valD = Math.round(Math.random() * (100000 - 1000) + 1000);  
+    let valC = Math.round(Math.random() * (1001 - 1) + 1); 
+    let valS = Math.round(Math.random() * (1000 - 100) + 100);    
+    let valH = Math.round(Math.random() * valC); 
     /*genero un array di indici tra -1 e 1 che rappresentano la variazione della domanda in serie storica*/
-    var indici = Array.from({length: 20}, (_,i) => Math.random() * (Math.random() < 0.5 ? -1 : 1));
+    let indici = Array.from({length: 3}, (_,i) => Math.random() * (Math.random() < 0.5 ? -1 : 1));
     /*genero l'array dei dati in serie storica con una variazione della base al massimo di un 10%*/ 
-    let dati= indici.map(elem => Math.round(base * (10 -  elem) / 10));
+    for(let i=0; i<indici.length; i++){
+        valD += Math.floor((Math.random() * 2 - 1) * maxVariazione);
+        valC += Math.floor((Math.random() * 2 - 1) * maxVariazione);
+        valH += Math.floor((Math.random() * 2 - 1) * maxVariazione);
+        valS += Math.floor((Math.random() * 2 - 1) * maxVariazione);       
+        dati.push({
+            valD: valD, 
+            valC: valC, 
+            valH: valH, 
+            valS: valS
+        });
+    }   
     res.send(dati);
 });
-
+ 
 /*inizio ascolto del server su porta 3000*/
 app.listen(port, () => {
     log(`Server web in ascolto sulla porta:${port}`,'INFO');

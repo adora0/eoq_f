@@ -37,10 +37,11 @@
           <p>
             <b>Applicazione per il calcolo del lotto economico di acquisto - EOQ</b>
           </p>
-          <p>Premere su EOQ per inserire i parametri di calcolo.
-            <br />E' possibile eseguire il calcolo utilizzando dati per un anno o in serie storica, i dati possono
-            essere generati automaticamente o caricati da file esterno.
-            <br /> Il file esterno è di tipo Comma Separated Value.
+          <p>Premere su <b>EOQ</b> per inserire i parametri di calcolo.<br />
+            I dati possono essere inseriti manualmente o caricando un file esterno -
+            Il file supportato è di tipo Comma Separated Value con delimitatore ';'<br /><br />
+            <i>Struttura file .csv anno,costo unitario prodotto, costo setup ordine, costo mantenimento, valore domanda</i><br />
+            Per testare l'applicativo è possibile generare dati random.
           </p>
           <br />
           <hr />
@@ -64,7 +65,7 @@
         </div>
         <div class="modal-body" id="alertMessaggio"></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>          
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
         </div>
       </div>
     </div>

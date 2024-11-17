@@ -1,7 +1,10 @@
 <div id="params" class="form-group row">
         <div class="col col-8">
+                <br />
                 <h4>Dati per il calcolo dell'EOQ</h4>
-                <br />Modalità inserimento dati
+                <div id="dAiuto" class="form-text">Inserimento dati per il calcolo del Lotto Economico di Ordinazione.<br />
+                </div>
+                <br />Selezionare la modalità inserimento dati
                 <div class="form-check checked">
                         <input type="radio" name="radioDati" id="radioDati1" onclick="showButton('btnDatiRandom')">
                         <label for="radioDati1">Autogenerati (test)</label>
@@ -18,21 +21,17 @@
                         <label for="radioDati3">Inserimento manuale</label>
                         <input type="button" id="btnDatiInserimento" value="Aggiungi dati" class="invisible" onclick="addRow()"/>
                 </div>
-                <div id="dAiuto" class="form-text">Inserire la domanda annua, la domanda annua può essere generata in
-                        automatico
-                        oppure caricata con un file esterno.<br />File supportato .csv con delimitatore ';' di due
-                        variabili
-                        [periodo];[valore]
-                </div>
+               <br />
 
                 <div id="datiD">
                         <table class="table table-hover table-sm table-responsive table-bordered">
                                 <thead>
                                         <tr>
+                                                <th scope="col"></th>
                                                 <th scope="col">Periodo</th>
                                                 <th scope="col">Costo unitario<br /><b>(C)</b></th>
                                                 <th scope="col">Costo setup ordine <br /><b>(S)</b></th>
-                                                <th scope="col">Costo mantenimento <br /><b>(C)</b></th>
+                                                <th scope="col">Costo mantenimento <br /><b>(H)</b></th>
                                                 <th scope="col">Valore domanda <br /><b>(D)</b></th>
                                                 <th scope="col"><b>EOQ</b></th>
                                         </tr>
