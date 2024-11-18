@@ -1,39 +1,51 @@
 <div id="params" class="form-group row">
         <div class="col col-8">
                 <br />
-                <h4>Dati per il calcolo dell'EOQ</h4>
-                <div id="dAiuto" class="form-text">Inserimento dati per il calcolo del Lotto Economico di Ordinazione.<br />
+                <h4>Calcolo EOQ - Inserimento dati</h4>
+                Inserimento dati per il calcolo del Lotto Economico di Ordinazione.
+                <br />Per calcolare la dimensione del lotto selezionare la modalità inserimento 
+                        dei dati storici, generati casualmente o importati da file CSV.<br />                        
+                <br /><br />
+                <div class="    "> 
+                        Premere su  <button type='button' id="btnDatiInserimento" class='btn btn-outline-secondary'
+                        onclick='addRow()'>+</button> per aggiungere dati  o carica dati da file CSV</b>                                   
+                        <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDati()"/>Carica file</button>
+                        <div id="fileSelezionato"></div>
+                        <br /><hr />                     
+                        <b>Inserisci dati casuali (test)</b>
+                        <button type="button" id="btnDatiRandom" class="btn btn-secondary" onclick="generaDati()">*</button> 
+                        
+                        <br />
+                        
                 </div>
-                <br />Selezionare la modalità inserimento dati
-                <div class="form-check checked">
-                        <input type="radio" name="radioDati" id="radioDati1" onclick="showButton('btnDatiRandom')">
-                        <label for="radioDati1">Autogenerati (test)</label>
-                        <input type="button" id="btnDatiRandom" value="Genera dati random" class="invisible"
-                                onclick="generaDati()" />
-                </div>
-                <div class="form-check">
-                        <input type="radio" name="radioDati" id="radioDati2" onclick="showButton('btnFileDati')">
-                        <label for="radioDati2">da File</label>
-                        <input type="file" id="btnFileDati" value="Carica file" class="invisible" />
-                </div>
-                <div class="form-check">
-                        <input type="radio" name="radioDati" id="radioDati3" onclick="showButton('btnDatiInserimento')">
-                        <label for="radioDati3">Inserimento manuale</label>
-                        <input type="button" id="btnDatiInserimento" value="Aggiungi dati" class="invisible" onclick="addRow()"/>
-                </div>
-               <br />
+
+                <br />
 
                 <div id="datiD">
                         <table class="table table-hover table-sm table-responsive table-bordered">
                                 <thead>
                                         <tr>
-                                                <th scope="col"></th>
+                                                
                                                 <th scope="col">Periodo</th>
-                                                <th scope="col">Costo unitario<br /><b>(C)</b></th>
-                                                <th scope="col">Costo setup ordine <br /><b>(S)</b></th>
-                                                <th scope="col">Costo mantenimento <br /><b>(H)</b></th>
-                                                <th scope="col">Valore domanda <br /><b>(D)</b></th>
-                                                <th scope="col"><b>EOQ</b></th>
+                                                <th scope="col">Costo unitario
+                                                        <br />
+                                                        <b>(C)</b>
+                                                </th>
+                                                <th scope="col">Costo setup ordine
+                                                        <br />
+                                                        <b>(S)</b>
+                                                </th>
+                                                <th scope="col">Costo mantenimento
+                                                        <br />
+                                                        <b>(H)</b>
+                                                </th>
+                                                <th scope="col">Valore domanda
+                                                        <br />
+                                                        <b>(D)</b>
+                                                </th>
+                                                <th scope="col">
+                                                        <b>EOQ</b>
+                                                </th>                                             
                                         </tr>
                                 </thead>
                                 <tbody id="tabellaDati" class="border">
@@ -43,7 +55,7 @@
                 <input type="submit" value="Calcola EOQ " id="btnCalcolaEOQ " />
         </div>
         <div class="col col-3">
-                
+
         </div>
 </div>
 

@@ -1,5 +1,6 @@
 /*libreria javascript - web application EOQ Lotto economico di acquisto*/
 
+const anno = new Date().getFullYear();
 
 /*getEOQ
   Funzione che richiama la routing path /elab per il calcolo del valore EOQ
@@ -51,9 +52,15 @@ async function showParams() {
    Richiama l'endpoint /datidomanda per la generazione di una serie storica casuale.
 */
 async function generaDati() {
+    let numAnni = 20;
+    let aa=anno; /*ultimo anno serie storica*/
     try {
+        
+        const data = new URLSearchParams();
+        data.append("n",numAnni);
         await fetch('/datidomanda', {
-            method: "POST"
+            method: "POST",            
+            body: data
         }).then(function (response) {
             return response.text();
         }).then(function (data) {
@@ -62,37 +69,33 @@ async function generaDati() {
             var tabella = document.getElementById('tabellaDati');
             tabella.innerHTML = '';
             let datiDomanda = JSON.parse(data);
-            let i = 1;
-
+            let i = 1;           
             datiDomanda.forEach((dati) => {
                 let row = document.createElement('tr');
                 let cell = document.createElement('td');
-                cell.appendChild(document.createTextNode(i));
-                row.appendChild(cell);
-
-                cell= document.createElement('td');
-                cell.appendChild(document.createTextNode('P1'));
+              
+                cell.appendChild(document.createTextNode(aa--));
                 row.appendChild(cell);
                 cell = document.createElement('td');
                 cell.appendChild(document.createTextNode(dati.valC.toLocaleString('it-IT')));
-                cell.classList.add("text-right");
+                cell.classList.add("numeric");
                 row.appendChild(cell);
 
                 cell = document.createElement('td');
                 cell.appendChild(document.createTextNode(dati.valS.toLocaleString('it-IT')));
-                cell.classList.add("text-right");
+                cell.classList.add("numeric");
                 row.appendChild(cell);
-                
+
                 cell = document.createElement('td');
                 cell.appendChild(document.createTextNode(dati.valH.toLocaleString('it-IT')));
-                cell.classList.add("text-right");
+                cell.classList.add("numeric");
                 row.appendChild(cell);
 
                 cell = document.createElement('td');
                 cell.appendChild(document.createTextNode(dati.valD.toLocaleString('it-IT')));
-                cell.classList.add("text-right");
+                cell.classList.add("numeric");
                 row.appendChild(cell);
-                
+
                 row.appendChild(cell);
 
                 tabella.appendChild(row);
@@ -104,6 +107,21 @@ async function generaDati() {
     }
 }
 
+
+async function caricaDati() {
+
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.onchange = e => {
+        let file = e.target.files[0];
+        document.getElementById("fileSelezionato").innerHTML = file.name;
+        console.log(file);
+    }
+    input.click();
+
+}
+
+
 /*addRow
   funzione per l'inserimento di una riga nella tabella dati, per l'inserimento manuale dei dati
   Valore restituito:
@@ -114,18 +132,18 @@ function addRow() {
     let tabella = document.getElementById('tabellaDati');
     /*imposto l'id della riga da inserire*/
     let num_riga = tabella.rows.length;
-    let row = tabella.insertRow();
+    let row = tabella.insertRow(0);
     /*imposto l'id della riga*/
     row.id = 'R' + num_riga;
     /*aggiungo le celle della tabella*/
-    let cellRiga = row.insertCell(0).innerHTML = num_riga + 1;
-    let cellPeriodo = row.insertCell(1);
-    let cellCosto = row.insertCell(2);
-    let cellSetup = row.insertCell(3);
-    let cellMantenimento = row.insertCell(4);
-    let cellDomanda = row.insertCell(5);
-    let cellEOQ = row.insertCell(6);
-    let cellRemove = row.insertCell(7);
+    /*let cellRiga = row.insertCell(0).innerHTML = num_riga + 1;*/
+    let cellPeriodo = row.insertCell(0);
+    let cellCosto = row.insertCell(1);
+    let cellSetup = row.insertCell(2);
+    let cellMantenimento = row.insertCell(3);
+    let cellDomanda = row.insertCell(4);
+    let cellEOQ = row.insertCell(5);
+    let cellRemove = row.insertCell(6);
     /*imposto le celle come editabili*/
     cellPeriodo.contentEditable = "true";
     cellCosto.contentEditable = "true";
@@ -133,7 +151,7 @@ function addRow() {
     cellMantenimento.contentEditable = "true";
     cellDomanda.contentEditable = "true";
     /*aggiungo il pulsante per la rimozione della riga*/
-    cellRemove.innerHTML = "<button type='button' class='btn btn-outline-danger' onclick='removeRow(this)'>X</button>";
+    cellRemove.innerHTML = "<button type='button' class='btn btn-outline-danger' onclick='removeRow(this)'>x</button>";
     /*restituisco la riga inserita*/
     return row;
 }
@@ -151,24 +169,6 @@ function removeRow(btn) {
     tabella.removeChild(row);
 }
 
-/*showButton 
-    Funzione per la visualizazione dinamica del form inserimento dati, dati dell domanda D, se generati 
-    automaticamente o inseriti tramite file csv.
-    Parametri: 
-    - btnID, valore id dell'input di tipo button da visualizzare.
-*/
-function showButton(btnID) {
-    document.getElementById(btnID).className = "visible";
-    (btnID != "btnFileDati") ? document.getElementById("btnFileDati").className = "invisible"
-        : document.getElementById("btnFileDati").className = "visible";
-    (btnID != "btnDatiRandom") ? document.getElementById("btnDatiRandom").className = "invisible"
-        : document.getElementById("btnDatiRandom").className = "visible";
-    (btnID != "btnDatiInserimento") ? document.getElementById("btnDatiInserimento").className = "invisible"
-        : document.getElementById("btnDatiInserimento").className = "visible";
-    /*inizializzo la tabella dati*/
-    document.getElementById('tabellaDati').innerHTML="";
-}
-
 /*showAlert
     Funzione per la visualizzazione di un messaggio di alert di tipo modal
     Parametri:
@@ -182,3 +182,23 @@ function showAlert(titolo, messaggio) {
     document.getElementById("alertMessaggio").innerHTML = messaggio;
 }
 
+
+
+
+
+/*showButton 
+    Funzione per la visualizazione dinamica del form inserimento dati, dati dell domanda D, se generati 
+    automaticamente o inseriti tramite file csv.
+    Parametri: 
+    - btnID, valore id dell'input di tipo button da visualizzare.
+*/
+/*function showButton(btnID) {
+    document.getElementById(btnID).className = "visible";
+    (btnID != "btnFileDati") ? document.getElementById("btnFileDati").classList.add("invisible")
+        : document.getElementById("btnFileDati").className = "visible";
+    (btnID != "btnDatiRandom") ? document.getElementById("btnDatiRandom").className = "invisible"
+        : document.getElementById("btnDatiRandom").className = "visible";   
+    /*inizializzo la tabella dati
+
+    document.getElementById('tabellaDati').innerHTML="";
+}*/
