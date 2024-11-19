@@ -55,6 +55,19 @@ body {
     margin-top: 20px;    
 }
 
-.numeric {
-    text-align:right;    
+.numeric {   
+    text-align:right;
+    font-size:medium;    
+}
+
+.text {
+    text-align: center;
+}
+
+table tbody tr td,
+table thead tr th,
+table {   
+  table-layout: fixed;
+  border-left: 1px solid #323a75;
+  border-right: 1px solid #323a75;
 }

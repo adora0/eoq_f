@@ -4,16 +4,18 @@
                 <h4>Calcolo EOQ - Inserimento dati</h4>
                 Inserimento dati per il calcolo del Lotto Economico di Ordinazione.
                 <br />Per calcolare la dimensione del lotto selezionare la modalità inserimento 
-                        dei dati storici, generati casualmente o importati da file CSV.<br />                        
-                <br /><br />
-                <div class="    "> 
-                        Premere su  <button type='button' id="btnDatiInserimento" class='btn btn-outline-secondary'
-                        onclick='addRow()'>+</button> per aggiungere dati  o carica dati da file CSV</b>                                   
-                        <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDati()"/>Carica file</button>
-                        <div id="fileSelezionato"></div>
-                        <br /><hr />                     
-                        <b>Inserisci dati casuali (test)</b>
-                        <button type="button" id="btnDatiRandom" class="btn btn-secondary" onclick="generaDati()">*</button> 
+                        dei dati storici, da sistema o importati da file CSV.<br />                        
+                <br />
+                <div> 
+                        <ul>
+                                <li>Carica dati <button type="button" id="btnDatiRandom" class="btn btn-secondary" onclick="caricaDati()">*</button></li>
+                                <li>Carica dati da file CSV <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDatiDaFile()"/>...</button><div id="fileSelezionato"></div></li>
+                        </ul>                        
+                        
+                        <hr />                     
+                        <b>Aggiungi dati manualmente</b>
+                        <button type='button' id="btnDatiInserimento" class='btn btn-outline-secondary'
+                        onclick='addRow()'>+</button> 
                         
                         <br />
                         
@@ -21,38 +23,38 @@
 
                 <br />
 
-                <div id="datiD">
-                        <table class="table table-hover table-sm table-responsive table-bordered">
+                <div>
+                        <table id="dati" class="table table-hover table-sm table-responsive table-bordered">
                                 <thead>
                                         <tr>
                                                 
-                                                <th scope="col">Periodo</th>
-                                                <th scope="col">Costo unitario
+                                                <th scope="col" class="small text">Periodo</th>
+                                                <th scope="col" class="small text">Costo unitario
                                                         <br />
                                                         <b>(C)</b>
                                                 </th>
-                                                <th scope="col">Costo setup ordine
+                                                <th scope="col" class="small text">Costo setup ordine
                                                         <br />
                                                         <b>(S)</b>
                                                 </th>
-                                                <th scope="col">Costo mantenimento
+                                                <th scope="col" class="small text">Costo mantenimento
                                                         <br />
                                                         <b>(H)</b>
                                                 </th>
-                                                <th scope="col">Valore domanda
+                                                <th scope="col" class="small text">Valore domanda
                                                         <br />
                                                         <b>(D)</b>
                                                 </th>
-                                                <th scope="col">
+                                                <th scope="col" class="small text">
                                                         <b>EOQ</b>
                                                 </th>                                             
                                         </tr>
                                 </thead>
-                                <tbody id="tabellaDati" class="border">
+                                <tbody id="tabellaDati">
                                 </tbody>
                         </table>
                 </div>
-                <input type="submit" value="Calcola EOQ " id="btnCalcolaEOQ " />
+                <button class="btn btn-secondary" id="btnCalcolaEOQ" onclick="elaboraEOQ('tabellaDati')" />Calcola EOQ</button>
         </div>
         <div class="col col-3">
 

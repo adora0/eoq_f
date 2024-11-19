@@ -2,113 +2,60 @@
 
 const anno = new Date().getFullYear();
 
-/*getEOQ
-  Funzione che richiama la routing path /elab per il calcolo del valore EOQ
-  I parametri per il calcolo vengono letti dai campi della pagina html
-  Valore restituito:
-  oggetto json:
-    - EOQ, valore del lotto ecnomico d'acquisto
-    - CTot, costo totale di riordino
-    - error. evventuale errore nel calcolo o nei parametri inviati
-*/
-async function getEOQ() {
-    try {
-        await fetch('/elab', {
-            method: "POST"
-        }).then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            // Aggiorna la parte della pagina con il nuovo contenuto
-            document.getElementById('result').innerHTML = data;
-        });
-    } catch (error) {
-        showAlert('Errore', 'Errore durante il calcolo EOQ:' + error);
-    }
-}
+/*caricaDati
+funzione per il caricamento dei dati nella table HTML
+Parametri:
+- data, oggetto JSON con i dati*/
+function inserisciDatiInTabella(data) {
+    //Aggiorna la porzione di pagina con il nuovo contenuto  
+    let aa = anno; /*ultimo anno serie storica*/
+    let tabella = document.getElementById('tabellaDati');
+    tabella.innerHTML = '';
+    let datiDomanda = JSON.parse(data);
+    let i = 1;
+    datiDomanda.forEach((dati) => {
+        let row = document.createElement('tr');
+        let cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(aa--));
+        cell.setAttribute('name','periodo');
+        row.appendChild(cell);
+        cell.classList.add("text");
+        cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(dati.valC.toLocaleString('it-IT')));
+        cell.classList.add("numeric");
+        cell.setAttribute('name','valC');
+        row.appendChild(cell);
 
-/*showParams
-  Funzione che richiama la routing path /params per la visualizzazione
-  e la possibilità di inserimento dei parametri per il calcolo dell'EOQ.
-  Valore restituito:
-  file html: params.html file con i campi da compilare per il calcolo dell'EOQ
-*/
-async function showParams() {
-    try {
-        await fetch('/params', {
-            method: "POST"
-        }).then(function (response) {
-            return response.text();
-        }).then(function (data) {
-            //Aggiorna la parte della pagina con il nuovo contenuto
-            document.getElementById('main').innerHTML = data;
-        });
-    } catch (error) {
-        showAlert('Errore', 'Errore durante il richiamo del form parametri' + error);
-    }
-}
+        cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(dati.valS.toLocaleString('it-IT')));
+        cell.classList.add("numeric");
+        cell.setAttribute('name','valS');
+        row.appendChild(cell);
 
-/* generaDati
-   Funzione per la generazione di una serie storica casuale.
-   Richiama l'endpoint /datidomanda per la generazione di una serie storica casuale.
-*/
-async function generaDati() {
-    let numAnni = 20;
-    let aa=anno; /*ultimo anno serie storica*/
-    try {
-        
-        const data = new URLSearchParams();
-        data.append("n",numAnni);
-        await fetch('/datidomanda', {
-            method: "POST",            
-            body: data
-        }).then(function (response) {
-            return response.text();
-        }).then(function (data) {
+        cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(dati.valH.toLocaleString('it-IT')));
+        cell.classList.add("numeric");
+        cell.setAttribute('name','valH');
+        row.appendChild(cell);
 
-            //Aggiorna la porzione di pagina con il nuovo contenuto            
-            var tabella = document.getElementById('tabellaDati');
-            tabella.innerHTML = '';
-            let datiDomanda = JSON.parse(data);
-            let i = 1;           
-            datiDomanda.forEach((dati) => {
-                let row = document.createElement('tr');
-                let cell = document.createElement('td');
-              
-                cell.appendChild(document.createTextNode(aa--));
-                row.appendChild(cell);
-                cell = document.createElement('td');
-                cell.appendChild(document.createTextNode(dati.valC.toLocaleString('it-IT')));
-                cell.classList.add("numeric");
-                row.appendChild(cell);
+        cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(dati.valD.toLocaleString('it-IT')));
+        cell.classList.add("numeric");
+        cell.setAttribute('name','valD');
+        row.appendChild(cell);
 
-                cell = document.createElement('td');
-                cell.appendChild(document.createTextNode(dati.valS.toLocaleString('it-IT')));
-                cell.classList.add("numeric");
-                row.appendChild(cell);
-
-                cell = document.createElement('td');
-                cell.appendChild(document.createTextNode(dati.valH.toLocaleString('it-IT')));
-                cell.classList.add("numeric");
-                row.appendChild(cell);
-
-                cell = document.createElement('td');
-                cell.appendChild(document.createTextNode(dati.valD.toLocaleString('it-IT')));
-                cell.classList.add("numeric");
-                row.appendChild(cell);
-
-                row.appendChild(cell);
-
-                tabella.appendChild(row);
-                i = i + 1;
-            });
-        });
-    } catch (error) {
-        showAlert('Errore', 'Errore durante la generazione di dati' + error);
-    }
+        cell = document.createElement('td');
+        cell.appendChild(document.createTextNode('1'));
+        cell.classList.add("numeric");
+        row.appendChild(cell);
+        cell.setAttribute('name','valEOQ');
+        tabella.appendChild(row);
+        i = i + 1;
+    });
 }
 
 
-async function caricaDati() {
+function caricaDatiDaFile() {
 
     let input = document.createElement('input');
     input.type = 'file';
@@ -121,6 +68,24 @@ async function caricaDati() {
 
 }
 
+/*convertiTabella
+funzione che converte la table dati in formato JSON per l'elaborazione
+*/
+function convertiTabella(table) {
+    let dt = document.getElementById(table);
+    const dati = [];
+    // Ottieni i dati delle righe 
+    dt.querySelectorAll('tr').forEach(tr => {        
+        const row = {};
+        tr.querySelectorAll('td').forEach((td, i) => {
+            row[td.getAttribute('name')] = parseInt(td.textContent.trim());
+        });
+        dati.push(row);
+    });
+    
+    // Converti l'array di oggetti in JSON 
+    return JSON.stringify(dati);
+}
 
 /*addRow
   funzione per l'inserimento di una riga nella tabella dati, per l'inserimento manuale dei dati
@@ -181,10 +146,6 @@ function showAlert(titolo, messaggio) {
     document.getElementById("alertTitolo").innerHTML = titolo;
     document.getElementById("alertMessaggio").innerHTML = messaggio;
 }
-
-
-
-
 
 /*showButton 
     Funzione per la visualizazione dinamica del form inserimento dati, dati dell domanda D, se generati 

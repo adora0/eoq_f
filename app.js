@@ -67,7 +67,8 @@ app.post('/elab', (req, res) => {
 
     const firstNum = 4;
     const secondNum = 7;
-
+    const dati=req.body;
+    console.log(dati);
     let dataToSend;
     // spawn new child process to call the python script 
     // and pass the variable values to the python script
