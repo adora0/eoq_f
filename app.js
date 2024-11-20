@@ -23,6 +23,8 @@ const app = express();
 /*porta di ascolto*/
 const port = 3000;
 
+const anno = new Date().getFullYear();
+
 /*funzione per la stampa del log nella console di nodejs
  Parametri:
  text, testo del messaggio
@@ -97,7 +99,7 @@ Valore restituito:
 app.post('/datidomanda',(req,res) => {   
     /*genero valori di base random per le varie componenti di calcolo*/
     log('datidomanda','INFO');
-    
+    let aa = anno; /*ultimo anno serie storica*/
     let dati = [];
     let maxVariazione = 0.5;    
     let valD = Math.round(Math.random() * (100000 - 1000) + 1000);  
@@ -107,12 +109,14 @@ app.post('/datidomanda',(req,res) => {
     /*genero un array di indici tra -1 e 1 che rappresentano la variazione della domanda in serie storica*/
     let indici = Array.from({length: req.body.n}, (_,i) => Math.random() * (Math.random() < 0.5 ? -1 : 1));
     /*genero l'array dei dati in serie storica con una variazione della base al massimo di un 10%*/ 
-    for(let i=0; i<indici.length; i++){        
+    for(let i=0; i<indici.length; i++){  
+        periodo=aa--;      
         valD += Math.floor((Math.random() * 2 - 1) * maxVariazione);
         valC += Math.floor((Math.random() * 2 - 1) * maxVariazione);
         valH += Math.floor((Math.random() * 2 - 1) * maxVariazione);
         valS += Math.floor((Math.random() * 2 - 1) * maxVariazione);       
         dati.push({
+            periodo: periodo, 
             valD: valD, 
             valC: valC, 
             valH: valH, 

@@ -6,8 +6,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #c8d8cf;
+    padding: 0;   
 }
 
     /* Titolo principale */
@@ -64,10 +63,18 @@ body {
     text-align: center;
 }
 
-table tbody tr td,
-table thead tr th,
-table {   
-  table-layout: fixed;
-  border-left: 1px solid #323a75;
-  border-right: 1px solid #323a75;
+button {
+    font-size: 0.9rem;
+}
+
+table.table thead tr {   
+  table-layout: fixed; 
+  border-top: 1px solid #323a75;
+  border-bottom: 1px solid #323a75;
+}
+
+table.table tbody td {
+    table-layout: fixed;
+    border-right: 1px solid #323a75;
+    
 }

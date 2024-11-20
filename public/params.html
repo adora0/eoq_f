@@ -2,23 +2,18 @@
         <div class="col col-8">
                 <br />
                 <h4>Calcolo EOQ - Inserimento dati</h4>
-                Inserimento dati per il calcolo del Lotto Economico di Ordinazione.
-                <br />Per calcolare la dimensione del lotto selezionare la modalità inserimento 
-                        dei dati storici, da sistema o importati da file CSV.<br />                        
+                <b>Inserimento dati per il calcolo del Lotto Economico di Ordinazione.</b>
+                <br />Per calcolare la dimensione del lotto è possibile aggiungere i dati nei seguenti modi :
                 <br />
-                <div> 
+                <div>
                         <ul>
-                                <li>Carica dati <button type="button" id="btnDatiRandom" class="btn btn-secondary" onclick="caricaDati()">*</button></li>
-                                <li>Carica dati da file CSV <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDatiDaFile()"/>...</button><div id="fileSelezionato"></div></li>
-                        </ul>                        
-                        
-                        <hr />                     
-                        <b>Aggiungi dati manualmente</b>
-                        <button type='button' id="btnDatiInserimento" class='btn btn-outline-secondary'
-                        onclick='addRow()'>+</button> 
-                        
-                        <br />
-                        
+                                <li>Pulsante 'Aggiungi dati', per inserire una riga alla volta</li>
+                                <li>Pulsante 'Carica dati', per caricare i dati in serie storica</li>
+                                <li>'Carica dati da file' , per caricare i dati da file</li>
+                        </ul>
+
+                        <hr />
+
                 </div>
 
                 <br />
@@ -27,7 +22,20 @@
                         <table id="dati" class="table table-hover table-sm table-responsive table-bordered">
                                 <thead>
                                         <tr>
-                                                
+                                                <td scope="col" colspan="5">
+                                                        <button type='button' id="btnInserisciDati" class='btn btn-outline-secondary btn-font' onclick="showInserimentoDati()">Aggiungi dati</button>
+                                                        <button type="button" class="btn btn-secondary btn-font" data-toglle="tooltip" data-placement="top" tile="eche" id="btnDatiRandom" class="btn btn-secondary"
+                                                                onclick="caricaDati()">Carica dati</button>
+                                                        <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDatiDaFile()" />Carica dati da file</button>
+                                                        <div id="fileSelezionato"></div>
+                                                </td>
+                                                <td>
+                                                        <button class="btn btn-primary" id="btnCalcolaEOQ" onclick="elaboraEOQ('tabellaDati')"
+                                                        />Calcola EOQ</button>
+                                                </td>
+                                        </tr>
+                                        <tr>
+
                                                 <th scope="col" class="small text">Periodo</th>
                                                 <th scope="col" class="small text">Costo unitario
                                                         <br />
@@ -47,36 +55,59 @@
                                                 </th>
                                                 <th scope="col" class="small text">
                                                         <b>EOQ</b>
-                                                </th>                                             
+                                                </th>
                                         </tr>
                                 </thead>
                                 <tbody id="tabellaDati">
                                 </tbody>
                         </table>
                 </div>
-                <button class="btn btn-secondary" id="btnCalcolaEOQ" onclick="elaboraEOQ('tabellaDati')" />Calcola EOQ</button>
+
         </div>
         <div class="col col-3">
 
         </div>
 </div>
 
+<div class="modal fade" id="datainput" tabindex="-1" aria-hidden="true" role="dialog">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                                <h5 class="modal-title">Inserimento dati</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                        </div>
+                        <div class="modal-body">
+                                <div class="form-group">
+                                        <label for="paramP" class="form-label" aria-describedby="cAiuto">Periodo</label>
+                                        <input type="number" id="paramP" name="periodo" min="0">
+                                        </>
+                                        <div id="pAiuto " class="form-text">Inserire il periodo di riferimento</div>
 
-<!---
-<br />
-<label for="paramC" class="form-label" aria-describedby="cAiuto">Costo unitario (C)</label>
-<input type="number" id="paramC" name="paramC " min="0"></>
-<div id="cAiuto " class="form-text">Inserire il costo di acquisto del prodotto in euro</div>
-<br /><br />
-<label for="paramS" class="form-label" aria-describedby="sAiuto">Costo emissione singolo ordine
-        (S)</label>
-<input type="number" id="paramS " min="0" class="input-group-sm"></>
-<div id="sAiuto" class="form-text">Inserire il costo complessivo per l'emmissione di un ordine</div>
-<br /><br />
-<label for="paramH" class="form-label" aria-describedby="hAiuto">Costo annuo mantenimento singolo
-        prodotto - I </label>
-<input type="number" id="paramH" min="0"></><br>
-<div id="hAiuto" class="form-text ">Inserire la percentuale di costo per il mantenimento annuo di un
-        prodotto.
+                                        <label for="paramC" class="form-label" aria-describedby="cAiuto">Costo unitario (C)</label>
+                                        <input type="number" id="paramC" name="valC" min="0" />
+                                        <div id="cAiuto " class="form-text">Inserire il costo di acquisto del prodotto in euro</div>
+                                        <br />
+                                        <br />
+                                        <label for="paramS" class="form-label" aria-describedby="sAiuto">Costo emissione singolo ordine (S)</label>
+                                        <input type="number" id="paramS" name="valS" min="0" class="input-group-sm" />
+                                        <div id="sAiuto" class="form-text">Inserire il costo complessivo per l'emmissione di un ordine</div>
+                                        <br />
+                                        <br />
+                                        <label for="paramH" class="form-label" aria-describedby="hAiuto">Costo annuo mantenimento singolo prodotto (H) </label>
+                                        <input type="number" id="paramH" name="valH" min="0" />
+                                        <br>
+                                        <div id="hAiuto" class="form-text ">Inserire la percentuale di costo per il mantenimento annuo di un prodotto.
+                                        </div>
+                                        <label for="paramD" class="form-label" aria-describedby="dAiuto">Valore domanda annua (D)</label>
+                                        <input type="number" id="paramD" name="valD" min="0" />
+                                        <br>
+                                        <div id="dAiuto" class="form-text ">Inserire il valore della domanda annua.</div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annulla</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-toggle="modal" id="btnAggiungiDati" onclick="aggiungiRiga()">Aggiungi</button>
+                        </div>
+                </div>
+        </div>
 </div>
-<br />
