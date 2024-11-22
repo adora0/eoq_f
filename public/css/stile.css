@@ -78,3 +78,8 @@ table.table tbody td {
     border-right: 1px solid #323a75;
     
 }
+
+#fileSelezionato {
+    font-size:15px;
+    font-style: italic;
+}

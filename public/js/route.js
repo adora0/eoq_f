@@ -23,7 +23,7 @@ async function caricaDati() {
 
 
 /************elaboraEOQ
-  Funzione che richiama la routing path /elab per il calcolo del valore EOQ
+  Funzione che richiama l'endpoint /elab per il calcolo del valore EOQ
   I parametri per il calcolo vengono letti dai campi della pagina html
   Valore restituito:
   oggetto json:
@@ -35,7 +35,6 @@ async function elaboraEOQ(tabellaDati) {
     try {
         const data = new URLSearchParams();        
         data.append("dati",convertiTabella(tabellaDati));
-        console.log(data);
         await fetch('/elab', {
             method: "POST",
             body:data
@@ -51,7 +50,7 @@ async function elaboraEOQ(tabellaDati) {
 }
 
 /************showParams
-  Funzione che richiama la routing path /params per la visualizzazione
+  Funzione che richiama l'endpoint /params per la visualizzazione
   e la possibilità di inserimento dei parametri per il calcolo dell'EOQ.
   Valore restituito:
   file html: params.html file con i campi da compilare per il calcolo dell'EOQ
@@ -70,3 +69,4 @@ async function showParams() {
         showAlert('Errore', 'Errore durante il richiamo del form parametri' + error);
     }
 }
+

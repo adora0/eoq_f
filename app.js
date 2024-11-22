@@ -15,6 +15,7 @@
 /*librerie utilizzate per l'applicazione server*/ 
 const express = require('express');
 const path = require('path');
+
 const fs = require('fs');
 const { spawn } = require('child_process');
 
@@ -40,6 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
 
 
+
 /*endpoint homepage applicazione - index.html*/
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public' , 'index.html'));
@@ -50,16 +52,8 @@ app.get('/', (req, res) => {
     invio di frammento codice html -file params.html-
 */
 app.post('/params', (req, res) => {
-	/*fs.readFile(path.join(__dirname, 'public' , 'params.html') , 'utf8', (err, data) => {
-        if (err) {
-            console.error('Errore nella lettura del file:', err);
-            return res.status(500).send('Errore nel caricamento del contenuto');
-        }		
-        res.sendFile(data);    
-	});*/
-    res.sendFile(path.join(__dirname, 'public' , 'params.html'));
-    log('Inviato file params.html','INFO');
-   
+	res.sendFile(path.join(__dirname, 'public' , 'params.html'));
+    log('Inviato file params.html','INFO');   
 });
 
 /*endpoint /elab
@@ -70,7 +64,7 @@ app.post('/elab', (req, res) => {
     const firstNum = 4;
     const secondNum = 7;
     const dati=req.body;
-    console.log(dati);
+    
     let dataToSend;
     // spawn new child process to call the python script 
     // and pass the variable values to the python script
@@ -89,6 +83,7 @@ app.post('/elab', (req, res) => {
 
     log('Richiesta elaborazione EOQ', 'INFO')
 });
+
 
 /*endpoint /datidomanda
 Funzione per la lettura di una serie storica di dati. Per le fasi di test e presentazione genera valori casuali .
@@ -110,7 +105,7 @@ app.post('/datidomanda',(req,res) => {
     let indici = Array.from({length: req.body.n}, (_,i) => Math.random() * (Math.random() < 0.5 ? -1 : 1));
     /*genero l'array dei dati in serie storica con una variazione della base al massimo di un 10%*/ 
     for(let i=0; i<indici.length; i++){  
-        periodo=aa--;      
+        periodo = aa--;      
         valD += Math.floor((Math.random() * 2 - 1) * maxVariazione);
         valC += Math.floor((Math.random() * 2 - 1) * maxVariazione);
         valH += Math.floor((Math.random() * 2 - 1) * maxVariazione);

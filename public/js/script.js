@@ -4,42 +4,42 @@
 /*caricaDati
 funzione per il caricamento dei dati nella table HTML
 Parametri:
-- data, oggetto JSON con i dati*/
-function inserisciDatiInTabella(data) {
+- dati, oggetto JSON con i dati*/
+function inserisciDatiInTabella(dati) {
 
     //Aggiorna la porzione di pagina con il nuovo contenuto  
-    console.log(data);
+
     let tabella = document.getElementById('tabellaDati');
-    let dati = JSON.parse(data);
+    //let dati = JSON.parse(data);
     let i = 1;
-    
-    dati.reverse().forEach((dati) => {        
+
+    JSON.parse(dati).reverse().forEach((d) => {
         let row = document.createElement('tr');
         let cell = document.createElement('td');
-        cell.textContent=dati.periodo;
+        cell.textContent = d.periodo;
         cell.setAttribute('name', 'periodo');
         row.appendChild(cell);
         cell.classList.add("text");
         cell = document.createElement('td');
-        cell.textContent=dati.valC.toLocaleString('it-IT');
+        cell.textContent = d.valC.toLocaleString('it-IT');
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valC');
         row.appendChild(cell);
 
         cell = document.createElement('td');
-        cell.textContent=dati.valS.toLocaleString('it-IT');
+        cell.textContent = d.valS.toLocaleString('it-IT');
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valS');
         row.appendChild(cell);
 
         cell = document.createElement('td');
-        cell.textContent=dati.valH.toLocaleString('it-IT');
+        cell.textContent = d.valH.toLocaleString('it-IT');
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valH');
         row.appendChild(cell);
 
         cell = document.createElement('td');
-        cell.textContent=dati.valD.toLocaleString('it-IT');
+        cell.textContent = d.valD.toLocaleString('it-IT');
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valD');
         row.appendChild(cell);
@@ -51,29 +51,47 @@ function inserisciDatiInTabella(data) {
         cell.setAttribute('name', 'valEOQ');
 
         cell = document.createElement("button");
-        cell.textContent="| X |";
-        cell.className="btn btn-outline-danger";      
-        cell.setAttribute("title","Elimina riga");
+        cell.textContent = "| X |";
+        cell.className = "btn btn-outline-danger";
+        cell.setAttribute("title", "Elimina riga");
         cell.setAttribute("type", "button");
         cell.setAttribute("onclick", "removeRow(this)");
         row.appendChild(cell);
-        tabella.insertBefore(row, tabella.firstChild); 
-          
+        tabella.insertBefore(row, tabella.firstChild);
+
     });
 }
 
-
+/*caricaDatiDaFile
+  Funzione che legge il file dati in formato csv.
+  I file consentiti devono avere il delimitatore ';' e le variabili d'intestazione 
+  periodo - periodo di riferimento anno, mese, trimestre
+  valC - valore Costo prodotto
+  valS - valore Setup
+  valH - valore costo gestione per prodotto per periodo
+  valD - quantità domanda
+  Valore restituito:
+  Oggetto JSON con i dati da elaborare per il calcolo dell'EOQ.
+*/
 function caricaDatiDaFile() {
-
+    
     let input = document.createElement('input');
     input.type = 'file';
+    input.setAttribute('accept', '.csv');
     input.onchange = e => {
         let file = e.target.files[0];
         document.getElementById("fileSelezionato").innerHTML = file.name;
-        console.log(file);
+        const reader = new FileReader();
+        reader.onload = function(e) {            
+            fileJSON=csvToJson(e.target.result);            
+            if(fileJSON != ''){
+                inserisciDatiInTabella(fileJSON);
+                showAlert('File dati', 'File correttamente caricato');
+            }
+        }
+        reader.readAsText(file);
     }
     input.click();
-
 }
 
 /*convertiTabella
@@ -94,8 +112,6 @@ function convertiTabella(table) {
     // Converti l'array di oggetti in JSON 
     return JSON.stringify(dati);
 }
-
-
 
 
 /*aggiungiRiga
@@ -176,6 +192,37 @@ function showInserimentoDati() {
     var modal = new bootstrap.Modal(document.getElementById('datainput'));
     modal.show();
 }
+
+/*csvToJson
+Funzione per convertire un file .csv in oggetto json. Il file deve contenere l'intestazione
+Parametri:
+- fileCsv, oggetto file di tipo csv 
+*/
+function csvToJson(fileCsv) {
+    /*suddivido il file in righe, separando per il separatore di linea*/
+    
+    const righe = fileCsv.trim().split('\n');
+
+    /*leggo l'intestazione dei dati*/
+    const variabili = righe[0].split(';').map(variabili => variabili.trim());
+    /*array dei dati*/
+    const dati = [];
+
+    /*leggo le righe e le variabili*/
+    for (let i = 1; i < righe.length; i++) {
+        const riga = righe[i].split(';').map(v => v.trim());
+
+        /*creo l'oggetto json per ogni riga*/
+        const obj = {};
+        for (let j = 0; j < variabili.length; j++) {
+            obj[variabili[j]] = riga[j];
+        }
+        dati.push(obj);
+    }
+    
+    return JSON.stringify(dati);
+}
+
 /*showButton 
     Funzione per la visualizazione dinamica del form inserimento dati, dati dell domanda D, se generati 
     automaticamente o inseriti tramite file csv.
