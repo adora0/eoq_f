@@ -2,7 +2,7 @@
    Funzione per la generazione di una serie storica casuale.
    Richiama l'endpoint /datidomanda per la generazione di una serie storica casuale.
 */
-async function caricaDati() {
+/*async function caricaDati() {
     let numAnni = 20;
     
     try {        
@@ -19,7 +19,7 @@ async function caricaDati() {
     } catch (error) {
         showAlert('Errore', 'Errore durante la generazione di dati' + error);
     }
-}
+}*/
 
 
 /************elaboraEOQ
