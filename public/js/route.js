@@ -31,22 +31,20 @@
     - CTot, costo totale di riordino
     - error. evventuale errore nel calcolo o nei parametri inviati
 */
-async function elaboraEOQ(tabellaDati) {
-    try {
+async function elaboraEOQ(tabellaDati) {    
         const data = new URLSearchParams();        
-        data.append("dati",convertiTabella(tabellaDati));
+        data.append("dati",convertiTabella(tabellaDati));        
         await fetch('/elab', {
             method: "POST",
             body:data
-        }).then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            // Aggiorna la parte della pagina con il nuovo contenuto
-            //document.getElementById('result').innerHTML = data;
-        });
-    } catch (error) {
+        }).then(function (response) {                             
+            return response.text();
+        }).then(function (data) {             
+            // Aggiorna la parte della pagina con il nuovo contenuto            
+            inserisciDatiInTabella(data);
+        }).catch(function(error) {
         showAlert('Errore', 'Errore durante il calcolo EOQ:' + error);
-    }
+        });
 }
 
 /************showParams

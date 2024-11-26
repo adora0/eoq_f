@@ -21,16 +21,22 @@
                         <table id="dati" class="table table-hover table-sm table-responsive table-bordered">
                                 <thead>
                                         <tr>
-                                                <td scope="col" colspan="5">
-                                                        <button type='button' id="btnInserisciDati" class='btn btn-outline-secondary btn-font' onclick="showInserimentoDati(true)">Aggiungi dati</button>
+                                                <td scope="col" colspan="7">
+                                                        <button type='button' id="btnInserisciDati"
+                                                                class='btn btn-outline-secondary btn-font'
+                                                                onclick="showInserimentoDati(true)">Aggiungi
+                                                                dati</button>
                                                         <!--<button type="button" class="btn btn-secondary btn-font" data-toglle="tooltip" data-placement="top" tile="eche" id="btnDatiRandom" class="btn btn-secondary"
                                                                 onclick="caricaDati()">Carica dati</button>-->
-                                                        <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDatiDaFile()" />Carica dati</button>
+                                                        <button id="btnFileDati" class="btn btn-secondary"
+                                                                onclick="caricaDatiDaFile()" />Carica dati</button>
                                                         </i>
                                                         <span id="fileSelezionato"></span>
                                                 </td>
                                                 <td>
-                                                        <button class="btn btn-primary" id="btnCalcolaEOQ" onclick="elaboraEOQ('tabellaDati')" />Calcola EOQ</button>
+                                                        <button class="btn btn-primary" id="btnCalcolaEOQ"
+                                                                onclick="elaboraEOQ('tabellaDati')" />Calcola
+                                                        EOQ</button>
                                                 </td>
                                         </tr>
                                         <tr>
@@ -55,6 +61,10 @@
                                                 <th scope="col" class="small text">
                                                         <b>EOQ</b>
                                                 </th>
+                                                <th scope="col" class="small text">
+                                                        <b>Costo totale</b>
+                                                </th>
+                                                <th scope="col"><!--Pulsante elimina riga--></th>
                                         </tr>
                                 </thead>
                                 <tbody id="tabellaDati">
@@ -73,47 +83,70 @@
                 <div class="modal-content">
                         <div class="modal-header">
                                 <h5 class="modal-title">Inserimento dati</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Chiudi"></button>
                         </div>
                         <div class="modal-body">
-                                <div id="modalError" class="alert alert-danger" style="display: none;">Dati non validi</div>
+                                <div id="modalError" class="alert alert-danger" style="display: none;">Dati non validi
+                                </div>
                                 <form id="formDati">
-                                <div>
-                                        <label for="paramP" class="form-label" aria-describedby="helpP">Periodo</label>
-                                        <input type="number" id="paramP" name="periodo" class="form-control" size="10" onfocusout="validaCampo('paramP')">
-                                        <div id="helpP " class="form-text">Inserire il periodo di riferimento</div>
-                                        <div id="pVerifica" class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit</div>
-                                </div>
-                                <div>
-                                        <label for="paramC" class="form-label" aria-describedby="helpC">Costo unitario (C)</label>
-                                        <input type="number" id="paramC" name="valC" class="form-control" size="10" onfocusout="validaCampo('paramC')" />
-                                        <div id="helpC" class="form-text">Inserire il costo di acquisto del prodotto in euro</div>
-                                        <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit</div>
-                                </div>
-                                <div>
-                                        <label for="paramS" class="form-label" aria-describedby="helpS">Costo emissione singolo ordine (S)</label>
-                                        <input type="number" id="paramS" name="valS" class="form-control" size="10" onfocusout="validaCampo('paramS')" />
-                                        <div id="helpS" class="form-text">Inserire il costo complessivo per l'emmissione di un ordine</div>
-                                        <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit</div>
-                                </div>
-                                <div>
-                                        <label for="paramH" class="form-label" aria-describedby="helpH">Costo annuo mantenimento singolo prodotto (H) </label>
-                                        <input type="number" id="paramH" name="valH" class="form-control" size="10" onfocusout="validaCampo('paramH')" />
-                                        <div id="helpH" class="form-text ">Inserire la percentuale di costo per il mantenimento annuo di un prodotto.</div>
-                                        <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit</div>
-                                </div>
-                                <div>
-                                        <label for="paramD" class="form-label" aria-describedby="helpD">Valore domanda annua (D)</label>
-                                        <input type="number" id="paramD" name="valD" class="form-control" size="10" onfocusout="validaCampo('paramD')" />
-                                        <div id="helpD" class="form-text ">Inserire il valore della domanda annua.</div>
-                                        <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit</div>
-                                </div>
-                        </form>
+                                        <div>
+                                                <label for="paramP" class="form-label"
+                                                        aria-describedby="helpP">Periodo</label>
+                                                <input type="number" id="paramP" name="periodo" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramP')">
+                                                <div id="helpP " class="form-text">Inserire il periodo di riferimento
+                                                </div>
+                                                <div id="pVerifica" class="invalid-feedback">Dato obbligatorio -
+                                                        lunghezza max 7 digit</div>
+                                        </div>
+                                        <div>
+                                                <label for="paramC" class="form-label" aria-describedby="helpC">Costo
+                                                        unitario (C)</label>
+                                                <input type="number" id="paramC" name="valC" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramC')" />
+                                                <div id="helpC" class="form-text">Inserire il costo di acquisto del
+                                                        prodotto in euro</div>
+                                                <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit
+                                                </div>
+                                        </div>
+                                        <div>
+                                                <label for="paramS" class="form-label" aria-describedby="helpS">Costo
+                                                        emissione singolo ordine (S)</label>
+                                                <input type="number" id="paramS" name="valS" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramS')" />
+                                                <div id="helpS" class="form-text">Inserire il costo complessivo per
+                                                        l'emmissione di un ordine</div>
+                                                <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit
+                                                </div>
+                                        </div>
+                                        <div>
+                                                <label for="paramH" class="form-label" aria-describedby="helpH">Costo
+                                                        annuo mantenimento singolo prodotto (H) </label>
+                                                <input type="number" id="paramH" name="valH" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramH')" />
+                                                <div id="helpH" class="form-text ">Inserire la percentuale di costo per
+                                                        il mantenimento annuo di un prodotto.</div>
+                                                <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit
+                                                </div>
+                                        </div>
+                                        <div>
+                                                <label for="paramD" class="form-label" aria-describedby="helpD">Valore
+                                                        domanda annua (D)</label>
+                                                <input type="number" id="paramD" name="valD" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramD')" />
+                                                <div id="helpD" class="form-text ">Inserire il valore della domanda
+                                                        annua.</div>
+                                                <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit
+                                                </div>
+                                        </div>
+                                </form>
                         </div>
                         <div class="modal-footer">
-                                <hr />                                
+                                <hr />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                                <button type="button" class="btn btn-primary" id="btnAggiungiDati" data-bs-dismiss="modal" onclick="aggiungiRiga(true)">Aggiungi</button>
+                                <button type="button" class="btn btn-primary" id="btnAggiungiDati"
+                                        data-bs-dismiss="modal" onclick="aggiungiRiga(true)">Aggiungi</button>
                         </div>
                 </div>
         </div>

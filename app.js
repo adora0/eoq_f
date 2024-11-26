@@ -61,27 +61,27 @@ app.post('/params', (req, res) => {
 */
 app.post('/elab', (req, res) => {
 
-    const firstNum = 4;
-    const secondNum = 7;
-    const dati=req.body;
-    
-    let dataToSend;
+    log('Richiesta elaborazione EOQ', 'INFO');
+    const datiAcquisti=req.body;     
+    let risultati;        
     // spawn new child process to call the python script 
     // and pass the variable values to the python script
-    const python = spawn('python', [path.join(__dirname,'mod','core.py'), firstNum , secondNum]);
+    const python = spawn('python', [path.join(__dirname,'mod','core.py'), JSON.stringify(datiAcquisti)]);
     // collect data from script
-    python.stdout.on('data', function (data) {
-        log('Inizio esecuzione script python', 'INFO');
-        dataToSend = data.toString();
-    });
-    // in close event we are sure that stream from child process is closed
-    python.on('close', (code) => {
-        log(`Codice esecuzione script python ${code} - [0=OK]`);
-        // send data to browser
-        res.json(dataToSend);
+    python.stdout.on('data', function (data) {        
+        log('Esecuzione script python', 'INFO');      
+        res.send(data);
     });
 
-    log('Richiesta elaborazione EOQ', 'INFO')
+    // in close event we are sure that stream from child process is closed
+    python.on('close', (code) => {
+        log(`Codice esecuzione script python ${code} - [0=OK]`,'INFO');
+        // send data to browser        
+    });
+
+    python.stderr.on('data', (data) => {log(`Errore: ${data}`,'ERROR'); });
+
+   
 });
 
 

@@ -1,15 +1,16 @@
 /*libreria javascript - web application EOQ Lotto economico di acquisto*/
 
 
-/*caricaDati
+/*inserisciDatiInTabella
 funzione per il caricamento dei dati nella table HTML
 Parametri:
 - dati, oggetto JSON con i dati*/
 function inserisciDatiInTabella(dati) {
-
+    
     //Aggiorna la porzione di pagina con il nuovo contenuto  
 
     let tabella = document.getElementById('tabellaDati');
+    tabella.innerHTML="";
     //let dati = JSON.parse(data);
     let i = 1;
 
@@ -25,36 +26,52 @@ function inserisciDatiInTabella(dati) {
         row.appendChild(cell);
 
         cell = document.createElement('td');
-        cell.textContent = d.valC.toLocaleString('it-IT');
+        cell.textContent = d.valC;
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valC');
         row.appendChild(cell);
 
         cell = document.createElement('td');
-        cell.textContent = d.valS.toLocaleString('it-IT');
+        cell.textContent = d.valS;
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valS');
         row.appendChild(cell);
 
         cell = document.createElement('td');
-        cell.textContent = d.valH.toLocaleString('it-IT');
+        cell.textContent = d.valH;
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valH');
         row.appendChild(cell);
 
         cell = document.createElement('td');
-        cell.textContent = d.valD.toLocaleString('it-IT');
+        cell.textContent = d.valD;
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valD');
         row.appendChild(cell);
 
+        /*RISULTATI*/
+        /*EOQ*/
         cell = document.createElement('td');
-        cell.appendChild(document.createTextNode(''));
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valEOQ');
+        if('valEOQ' in d) 
+            cell.textContent = d.valEOQ;
+        else 
+            cell.textContent = '';
         row.appendChild(cell);
 
+        /*Costo totale*/
+        cell = document.createElement('td');
+        cell.classList.add("numeric");
+        cell.setAttribute('name', 'valCT');
+        if('valEOQ' in d) 
+            cell.textContent = d.valCT;
+        else 
+            cell.textContent = '';
+        row.appendChild(cell);
+        row.appendChild(cell);
 
+        cell = document.createElement('td');
         cell.innerHTML = "<a href='#'><img src='/images/garbage.png' onclick='removeRow(this)' width='30px' /></a>";
         row.appendChild(cell);
         tabella.insertBefore(row, tabella.firstChild);
@@ -104,8 +121,10 @@ function convertiTabella(table) {
     dt.querySelectorAll('tr').forEach(tr => {
         const row = {};
         tr.querySelectorAll('td').forEach((td, i) => {
-            row[td.getAttribute('name')] = parseInt(td.textContent.trim());
-        });
+            if(td.getAttribute('name')){
+                row[td.getAttribute('name')] = parseInt(td.textContent.trim() || 0 );
+            }
+        });       
         dati.push(row);
     });
 
