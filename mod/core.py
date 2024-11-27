@@ -16,15 +16,20 @@ def calcola_EOQ(df):
     df["valEOQ"]=nm.int16(nm.sqrt((2 * df["valS"] * df["valD"] / df["valH"])))
 
 def calcola_forecast(df):    
-    dta=df["periodo","valD"]
-    dta["ds"]= dta["periodo"].apply(str) + "-1-1"
-    dta.rename(columns={"valD": "y", "periodo": "unique_id"}, inplace=True)
-  
-    sf = StatsForecast(
-    models = [AutoARIMA(season_length = 1)],freq = 1)
-    sf.fit(df)
+    #creo una copia dei dati con solo la serie storica della domanda
+    dta=df.loc[:,("periodo","valD")] 
+    #aggiungo i campi necessari previsti dalla libreria StatsForecast
+    dta=dta.rename(columns={"valD": "y", "periodo": "ds"})
+    dta["unique_id"]= "domanda"
     
-    forecast=sf.predict(h=1, level=[95])
+    #istanzio il modello AutoARIMA, con frequenza annuale
+    sf = StatsForecast(models = [AutoARIMA(season_length = 1)],freq = 1)
+    #addestro il modello con i dati
+    sf.fit(dta)
+    #calcolo un periodo con intervallo di confidenza 95
+    eoq_f=sf.predict(h=1, level=[95])
+    #ripristino i nomi delle variabili per il valore di return
+    return eoq_f
 
 
 try:
@@ -39,7 +44,13 @@ try:
     #genero il DataFrame del package Pandas
     df=pd.DataFrame(dati_tabella)
     
-    calcola_forecast(df)
+    frc=calcola_forecast(df)
+    #aggiungo la previsione ai dati
+    previsione=df.head(1)
+    previsione.loc[:,('valD')]=frc.loc[:,('AutoARIMA-lo-95')]
+    previsione.loc[:,('periodo')]=frc.loc[:,('ds')]
+    #aggiungo la previsione al dataset
+    df = pd.concat([previsione,df])
 
     #richiamo la funzione per il calcolo
     calcola_EOQ(df)

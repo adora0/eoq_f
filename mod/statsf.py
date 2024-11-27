@@ -16,18 +16,16 @@ def calcola_EOQ(df):
     df["valEOQ"]=nm.int16(nm.sqrt((2 * df["valS"] * df["valD"] / df["valH"])))
 
 def calcola_forecast(df):    
-    datas=df[["periodo","valD"]].copy()    
-    datas=datas.rename(columns={"valD": "y", "periodo": "unique_id"})
-    print(datas)
-    datas["ds"]= datas["unique_id"]
+    datas=df.loc[:,("periodo","valD")]   
+    datas=datas.rename(columns={"valD": "y", "periodo": "ds"})
+    datas["unique_id"]= "eoq"
     
-    
-    sf = StatsForecast(
-    models = [AutoARIMA(season_length = 1)],freq = 1)
+    sf = StatsForecast(models = [AutoARIMA(season_length = 1)],freq = 1)
     sf.fit(datas)
-    
-    forecast=sf.predict(h=2, level=[95])
-    print(forecast)
+  
+    forecast=sf.predict(h=5, level=[90])
+    return forecast
+   
 
 
 try:
@@ -38,13 +36,20 @@ try:
     #genero il DataFrame del package Pandas
     df=pd.DataFrame(json.loads(dati_tabella))
     
-    calcola_forecast(df)
-
+    frc=calcola_forecast(df)
+    
+    ultima_riga=df.head(1)   
+    ultima_riga.loc[:,('valD')]=frc.loc[:,('AutoARIMA-lo-90')]
+    ultima_riga.loc[:,('periodo')]=frc.loc[:,('ds')]
+    
+    df=pd.concat([ultima_riga,df])
+    print(df.head())
     #richiamo la funzione per il calcolo
     calcola_EOQ(df)
 
     #restituisco il dataframe come json 
-    print(df.to_json(orient="records"))
+    print(df)
+    #print(df.to_json(orient="records"))
     exit(0)
 
 except Exception as e: 

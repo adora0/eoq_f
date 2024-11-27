@@ -34,10 +34,11 @@
 async function elaboraEOQ(tabellaDati) {    
         const data = new URLSearchParams();        
         data.append("dati",convertiTabella(tabellaDati));        
+        
         await fetch('/elab', {
             method: "POST",
             body:data
-        }).then(function (response) {                             
+        }).then(function (response) {                                         
             return response.text();
         }).then(function (data) {             
             // Aggiorna la parte della pagina con il nuovo contenuto            
