@@ -8,11 +8,12 @@
                 <div>
                         <ul>
                                 <li>Pulsante 'Aggiungi dati', per inserire una riga alla volta</li>
-                                <li>Pulsante 'Carica dati', per caricare i dati in serie storica</li>
+                                <li>Pulsante 'Carica dati', per caricare i dati in serie storica da file <i>.csv</i>
+                                </li>
                         </ul>
 
                         <hr />
-
+                        
                 </div>
 
                 <br />
@@ -22,21 +23,32 @@
                                 <thead>
                                         <tr>
                                                 <td scope="col" colspan="7">
-                                                        <button type='button' id="btnInserisciDati"
-                                                                class='btn btn-outline-secondary btn-font'
-                                                                onclick="showInserimentoDati(true)">Aggiungi
-                                                                dati</button>
-                                                        <!--<button type="button" class="btn btn-secondary btn-font" data-toglle="tooltip" data-placement="top" tile="eche" id="btnDatiRandom" class="btn btn-secondary"
-                                                                onclick="caricaDati()">Carica dati</button>-->
-                                                        <button id="btnFileDati" class="btn btn-secondary"
-                                                                onclick="caricaDatiDaFile()" />Carica dati</button>
-                                                        </i>
-                                                        <span id="fileSelezionato"></span>
+                                                        <div class="form-check form-check-inline checked">
+                                                                <input type="radio" name="radioDati" id="radioDati1"
+                                                                        onclick="showButton('btnInserisciDati')">
+                                                                <label for="radioDati1">Manualmente</label>
+                                                                <button type='button' id="btnInserisciDati" class='btn btn-outline-secondary btn-font invisible'
+                                                                        onclick="showInserimentoDati(true)">Aggiungi dati</button>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                                <input type="radio" name="radioDati" id="radioDati2"
+                                                                        onclick="showButton('btnFileDati')">
+                                                                <label for="radioDati2">da File</label>
+                                                                <button id="btnFileDati" class="btn btn-secondary invisible" 
+                                                                        onclick="caricaDatiDaFile()" />Carica dati</button>
+                                                                 <i><span id="fileSelezionato"></span></i>
+                                                        </div>
+
                                                 </td>
                                                 <td>
                                                         <button class="btn btn-primary" id="btnCalcolaEOQ"
                                                                 onclick="elaboraEOQ('tabellaDati')" />Calcola
-                                                        EOQ</button>
+                                                        EOQ
+
+                                                        <div id="spinner"
+                                                                class="spinner-grow spinner-grow-sm text-light"
+                                                                role="status"></div>
+                                                        </button>
                                                 </td>
                                         </tr>
                                         <tr>
@@ -87,7 +99,7 @@
                                         aria-label="Chiudi"></button>
                         </div>
                         <div class="modal-body">
-                                <div id="modalError" class="alert alert-danger" style="display: none;">Dati non validi
+                                <div id="modalError" class="alert alert-danger" style="display: none;">Dati non validi - Riempire tutti i campi
                                 </div>
                                 <form id="formDati">
                                         <div>
@@ -146,7 +158,7 @@
                                 <hr />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
                                 <button type="button" class="btn btn-primary" id="btnAggiungiDati"
-                                        data-bs-dismiss="modal" onclick="aggiungiRiga(true)">Aggiungi</button>
+                                        data-bs-dismiss="modal" onclick="aggiungiRiga(false)">Aggiungi</button>
                         </div>
                 </div>
         </div>

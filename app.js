@@ -40,8 +40,6 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
 
-
-
 /*endpoint homepage applicazione - index.html*/
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public' , 'index.html'));
@@ -55,6 +53,15 @@ app.post('/params', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public' , 'params.html'));
     log('Inviato file params.html','INFO');   
 });
+
+/*endpoint /info
+    invio di frammento codice html -file params.html-
+*/
+app.post('/info', (req, res) => {
+	res.sendFile(path.join(__dirname, 'public' , 'info.html'));
+    log('Inviato file info.html','INFO');   
+});
+
 
 /*endpoint /elab
     richiamo delle funzioni Python per il calcolo dell'EOQ

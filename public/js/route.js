@@ -32,7 +32,9 @@
     - error. evventuale errore nel calcolo o nei parametri inviati
 */
 async function elaboraEOQ(tabellaDati) {    
-        const data = new URLSearchParams();        
+        const data = new URLSearchParams(); 
+        document.getElementById("spinner").style.display = 'inline-block';
+           
         data.append("dati",convertiTabella(tabellaDati));        
         
         await fetch('/elab', {
@@ -43,9 +45,11 @@ async function elaboraEOQ(tabellaDati) {
         }).then(function (data) {             
             // Aggiorna la parte della pagina con il nuovo contenuto            
             inserisciDatiInTabella(data);
+           
         }).catch(function(error) {
-        showAlert('Errore', 'Errore durante il calcolo EOQ:' + error);
+            showAlert('Errore', 'Errore durante il calcolo EOQ:' + error);
         });
+        document.getElementById("spinner").style.display = 'none';
 }
 
 /************showParams
@@ -66,6 +70,29 @@ async function showParams() {
         });
     } catch (error) {
         showAlert('Errore', 'Errore durante il richiamo del form parametri' + error);
+    }
+}
+
+
+
+/************showInfo
+  Funzione che richiama l'endpoint /info per la visualizzazione delle 
+  informazioni riguardanti le modalità di uso dell'applicativo.
+  Valore restituito:
+  file html: info.html
+*/
+async function showInfo() {
+    try {
+        await fetch('/info', {
+            method: "POST"
+        }).then(function (response) {
+            return response.text();
+        }).then(function (data) {
+            //Aggiorna la parte della pagina con il nuovo contenuto
+            document.getElementById('main').innerHTML = data;
+        });
+    } catch (error) {
+        showAlert('Errore', 'Errore durante il richiamo della pagina di informazioni' + error);
     }
 }
 

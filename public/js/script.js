@@ -4,13 +4,18 @@
 /*inserisciDatiInTabella
 funzione per il caricamento dei dati nella table HTML
 Parametri:
-- dati, oggetto JSON con i dati*/
-function inserisciDatiInTabella(dati) {
-    
-    //Aggiorna la porzione di pagina con il nuovo contenuto  
+- dati, oggetto JSON con i dati
+- svuota, boolean per indicare se pulire la tabella o no. Nella fase di
+  caricamento da file la tabella va svuotata, con l'inserimento manuale no.
+*/
+function inserisciDatiInTabella(dati, svuota) {
 
+    //Aggiorna la porzione di pagina con il nuovo contenuto  
     let tabella = document.getElementById('tabellaDati');
-    tabella.innerHTML="";
+    /*se inserimento da file pulisco la tabella*/
+    if (svuota) {
+        tabella.innerHTML = "";
+    }
     //let dati = JSON.parse(data);
     let i = 1;
 
@@ -54,9 +59,9 @@ function inserisciDatiInTabella(dati) {
         cell = document.createElement('td');
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valEOQ');
-        if('valEOQ' in d) 
+        if ('valEOQ' in d)
             cell.textContent = d.valEOQ;
-        else 
+        else
             cell.textContent = '';
         row.appendChild(cell);
 
@@ -64,9 +69,9 @@ function inserisciDatiInTabella(dati) {
         cell = document.createElement('td');
         cell.classList.add("numeric");
         cell.setAttribute('name', 'valCT');
-        if('valEOQ' in d) 
+        if ('valEOQ' in d)
             cell.textContent = d.valCT;
-        else 
+        else
             cell.textContent = '';
         row.appendChild(cell);
         row.appendChild(cell);
@@ -121,10 +126,10 @@ function convertiTabella(table) {
     dt.querySelectorAll('tr').forEach(tr => {
         const row = {};
         tr.querySelectorAll('td').forEach((td, i) => {
-            if(td.getAttribute('name')){
-                row[td.getAttribute('name')] = parseInt(td.textContent.trim() || 0 );
+            if (td.getAttribute('name')) {
+                row[td.getAttribute('name')] = parseInt(td.textContent.trim() || 0);
             }
-        });       
+        });
         dati.push(row);
     });
 
@@ -132,32 +137,10 @@ function convertiTabella(table) {
     return JSON.stringify(dati);
 }
 
-/*showInserimentoDati 
-    Funzione per la visualizazione del form inserimento dati di tipo modal.
-    Parametro:
-    - flagVuoto, boolean per aprire il modal pulito o no. Utilizzato per mostrarlo di nuovo in caso di errori;
-    Pulisco e resetto le classi in caso di visualizzazione precedente.   
-*/
-function showInserimentoDati(flagVuoto) {
-    let modal = new bootstrap.Modal(document.getElementById('datainput'));
-    
-    if (flagVuoto) {
-        let f = document.getElementById("formDati");
-        let err= document.getElementById('modalError');
-        err.style.display='none';
-        Array.from(f.elements).forEach(function (input) {
-            if (input.tagName === 'INPUT') {
-                /*Imposto le classi iniziali e pulisco i campi di input*/
-                input.value = '';
-                input.className = 'form-control';
-            }
-        });
-    }
-    modal.show();
-}
 
 /*aggiungiRiga
   funzione per l'inserimento di una riga nella tabella dati, per l'inserimento manuale dei dati
+  Parametri:
   Valore restituito:
   - il riferimento all'oggetto riga appena inserito
 */
@@ -165,24 +148,23 @@ function aggiungiRiga() {
     /*leggo i dati dal form modal*/
     const dati = [];
     let riga = {};
-    let flagFormValido=true;
+    let flagFormValido = true;
 
     /*controllo i dati inseriti nel form*/
     let f = document.getElementById('formDati');
-    let err= document.getElementById('modalError');
+    let err = document.getElementById('modalError');
     Array.from(f.elements).forEach(function (input) {
         if (input.tagName === 'INPUT') {
-            console.log(input.value);
             /*verifico se l'input è valido*/
-            if (!valoreValido(input.value)) {
+            if (!controllaValore(input.value)) {
                 /*se un valore non è valido fermo l'esecuzione*/
-                flagFormValido=false;
+                flagFormValido = false;
                 return;
             }
         }
     });
     /*form dati non valido, visualizzo di nuovo il form con un avviso*/
-    if(!flagFormValido){
+    if (!flagFormValido) {
         err.style.display = 'block';
         showInserimentoDati(false);
         return;
@@ -195,7 +177,7 @@ function aggiungiRiga() {
     riga['valS'] = document.getElementById('paramS').value;
     riga['valH'] = document.getElementById('paramH').value;
     dati.push(riga);
-    inserisciDatiInTabella(JSON.stringify(dati));   
+    inserisciDatiInTabella(JSON.stringify(dati), false);
 }
 
 /*removeRow
@@ -222,7 +204,7 @@ function validaCampo(id) {
     /*campo di input*/
     campo = document.getElementById(id);
     /*se il campo non rispetta i requisiti imposto le classi bootstrap di avviso - rosso invalido, verde valido*/
-    if (valoreValido(campo.value)) {
+    if (controllaValore(campo.value)) {
         /*valore valido*/
         campo.classList.add('is-valid');
         campo.classList.remove('is-invalid');
@@ -243,7 +225,7 @@ Parametri:
 Valore restituito:
  - boolean, true, valore valido, false altrimenti.
  */
-function valoreValido(inputVal) {
+function controllaValore(inputVal) {
     /*regola per accettare solo numeri*/
     let regex = /^[0-9]/;
     return (inputVal < 0 || inputVal.length > 7 || !regex.test(inputVal)) ? false : true;
@@ -279,6 +261,31 @@ function csvToJson(fileCsv) {
 }
 
 
+
+/*showInserimentoDati 
+    Funzione per la visualizazione del form inserimento dati di tipo modal.
+    Parametro:
+    - flagVuoto, boolean per aprire il modal pulito o no. Utilizzato per mostrarlo di nuovo in caso di errori;
+    Pulisco e resetto le classi in caso di visualizzazione precedente.   
+*/
+function showInserimentoDati(flagVuoto) {
+    let modal = new bootstrap.Modal(document.getElementById('datainput'));
+
+    if (flagVuoto) {
+        let f = document.getElementById("formDati");
+        let err = document.getElementById('modalError');
+        err.style.display = 'none';
+        Array.from(f.elements).forEach(function (input) {
+            if (input.tagName === 'INPUT') {
+                /*Imposto le classi iniziali e pulisco i campi di input*/
+                input.value = '';
+                input.className = 'form-control';
+            }
+        });
+    }
+    modal.show();
+}
+
 /*showAlert
     Funzione per la visualizzazione di un messaggio di alert di tipo modal
     Parametri:
@@ -290,4 +297,24 @@ function showAlert(titolo, messaggio) {
     modal.show();
     document.getElementById("alertTitolo").innerHTML = titolo;
     document.getElementById("alertMessaggio").innerHTML = messaggio;
+}
+
+/*showButton 
+    Funzione per la visualizazione dinamica del form inserimento dati se inseriti manualmente o inseriti tramite file csv.
+    Parametri: 
+    - btnID, valore id dell'input di tipo button da visualizzare.
+*/
+function showButton(btnID) {
+    document.getElementById(btnID).classList.remove("invisible");
+    document.getElementById(btnID).classList.add("visible");
+    if (btnID === "btnInserisciDati") {
+        document.getElementById("btnFileDati").classList.add("invisible");
+        document.getElementById("btnFileDati").classList.remove("visible");
+        document.getElementById('fileSelezionato').innerHTML = "";
+    }
+    if (btnID === "btnFileDati") {
+        document.getElementById("btnInserisciDati").classList.add("invisible");
+        document.getElementById("btnInserisciDati").classList.remove("visible");
+    }
+
 }
