@@ -73,7 +73,7 @@ app.post('/elab', (req, res) => {
     let risultati;        
     // spawn new child process to call the python script 
     // and pass the variable values to the python script
-    const python = spawn('python', [path.join(__dirname,'mod','core.py'), JSON.stringify(datiAcquisti)]);
+    const python = spawn('python', [path.join(__dirname,'pyelab','eoq_elab.py'), JSON.stringify(datiAcquisti)]);
     // collect data from script
     python.stdout.on('data', function (data) {        
         log('Esecuzione script python', 'INFO');      

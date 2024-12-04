@@ -33,10 +33,17 @@
 */
 async function elaboraEOQ(tabellaDati) {    
         const data = new URLSearchParams(); 
+        let dati=convertiTabella(tabellaDati);
+   
+        if(dati=="") {
+            showAlert('Attenzione', 'Tabella dati vuota');
+            return;
+        }
         document.getElementById("spinner").style.display = 'inline-block';
            
         data.append("dati",convertiTabella(tabellaDati));        
-        
+        data.append("flagPrev",1);
+        data.append("nPrev",3);        
         await fetch('/elab', {
             method: "POST",
             body:data
@@ -44,7 +51,7 @@ async function elaboraEOQ(tabellaDati) {
             return response.text();
         }).then(function (data) {             
             // Aggiorna la parte della pagina con il nuovo contenuto            
-            inserisciDatiInTabella(data);
+            inserisciDatiInTabella(data,true);
            
         }).catch(function(error) {
             showAlert('Errore', 'Errore durante il calcolo EOQ:' + error);

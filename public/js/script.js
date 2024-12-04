@@ -102,13 +102,13 @@ function caricaDatiDaFile() {
     input.setAttribute('accept', '.csv');
     input.onchange = e => {
         let file = e.target.files[0];
-        document.getElementById("fileSelezionato").innerHTML = file.name;
+       /* document.getElementById("fileSelezionato").innerHTML = file.name;*/
         const reader = new FileReader();
         reader.onload = function (e) {
             fileJSON = csvToJson(e.target.result);
             if (fileJSON != '') {
-                inserisciDatiInTabella(fileJSON);
-                showAlert('File dati', 'File correttamente caricato');
+                inserisciDatiInTabella(fileJSON,false);
+                showAlert('File dati', 'File ' + file.name + ' correttamente caricato');
             }
         }
         reader.readAsText(file);
@@ -123,7 +123,7 @@ function convertiTabella(table) {
     let dt = document.getElementById(table);
     const dati = [];
     // Ottieni i dati delle righe 
-    dt.querySelectorAll('tr').forEach(tr => {
+    dt.querySelectorAll('tr').forEach(tr => {        
         const row = {};
         tr.querySelectorAll('td').forEach((td, i) => {
             if (td.getAttribute('name')) {
@@ -132,9 +132,10 @@ function convertiTabella(table) {
         });
         dati.push(row);
     });
-
-    // Converti l'array di oggetti in JSON 
-    return JSON.stringify(dati);
+    
+    // Converti l'array di oggetti in JSON se la tabella è piena
+    return (dati.length > 0) ? JSON.stringify(dati) : "";
+    
 }
 
 
@@ -177,7 +178,7 @@ function aggiungiRiga() {
     riga['valS'] = document.getElementById('paramS').value;
     riga['valH'] = document.getElementById('paramH').value;
     dati.push(riga);
-    inserisciDatiInTabella(JSON.stringify(dati), false);
+    inserisciDatiInTabella(JSON.stringify(dati, false));
 }
 
 /*removeRow
@@ -260,7 +261,11 @@ function csvToJson(fileCsv) {
     return JSON.stringify(dati);
 }
 
-
+/*svuotaTabella
+Funzione per la rimozione di tutti i dati inseriti in tabella*/
+function svuotaTabella(){
+    document.getElementById("tabellaDati").innerHTML="";
+}
 
 /*showInserimentoDati 
     Funzione per la visualizazione del form inserimento dati di tipo modal.
