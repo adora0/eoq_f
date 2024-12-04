@@ -28,8 +28,8 @@ function inserisciDatiInTabella(dati, svuota) {
         cell.textContent = d.periodo;
         cell.setAttribute('name', 'periodo');
         cell.classList.add("text");
-        row.appendChild(cell);
-
+        row.appendChild(cell);     
+        
         cell = document.createElement('td');
         cell.textContent = d.valC;
         cell.classList.add("numeric");
@@ -68,12 +68,21 @@ function inserisciDatiInTabella(dati, svuota) {
         /*Costo totale*/
         cell = document.createElement('td');
         cell.classList.add("numeric");
+        cell.setAttribute('name', 'valNL');
+        if ('valEOQ' in d)
+            cell.textContent = d.valNL;
+        else
+            cell.textContent = '';
+        row.appendChild(cell);
+     
+        /*Numero lotti*/
+        cell = document.createElement('td');
+        cell.classList.add("numeric");
         cell.setAttribute('name', 'valCT');
         if ('valEOQ' in d)
             cell.textContent = d.valCT;
         else
             cell.textContent = '';
-        row.appendChild(cell);
         row.appendChild(cell);
 
         cell = document.createElement('td');
@@ -88,7 +97,6 @@ function inserisciDatiInTabella(dati, svuota) {
   Funzione che legge il file dati in formato csv.
   I file consentiti devono avere il delimitatore ';' e le letiabili d'intestazione 
   periodo - periodo di riferimento anno, mese, trimestre
-  valC - valore Costo prodotto
   valS - valore Setup
   valH - valore costo gestione per prodotto per periodo
   valD - quantità domanda
@@ -173,8 +181,8 @@ function aggiungiRiga() {
 
     /*form valido inserisco i dati nella tabella html*/
     riga['periodo'] = document.getElementById('paramP').value;
-    riga['valD'] = document.getElementById('paramD').value;
-    riga['valC'] = document.getElementById('paramC').value;
+    riga['valD'] = document.getElementById('paramD').value;    
+    riga['valC'] = document.getElementById('paramC').value;    
     riga['valS'] = document.getElementById('paramS').value;
     riga['valH'] = document.getElementById('paramH').value;
     dati.push(riga);
@@ -309,7 +317,7 @@ function showAlert(titolo, messaggio) {
     Parametri: 
     - btnID, valore id dell'input di tipo button da visualizzare.
 */
-function showButton(btnID) {
+/*function showButton(btnID) {
     document.getElementById(btnID).classList.remove("invisible");
     document.getElementById(btnID).classList.add("visible");
     if (btnID === "btnInserisciDati") {
@@ -322,4 +330,4 @@ function showButton(btnID) {
         document.getElementById("btnInserisciDati").classList.remove("visible");
     }
 
-}
+}*/

@@ -27,37 +27,46 @@
                                                         <!-- <div class="form-check form-check-inline">
                                                                 <input type="radio" name="radioDati" id="radioDati2" onclick="showButton('btnFileDati')">
                                                                 <label for="radioDati2">da File</label>-->
-                                                        <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDatiDaFile()" />Carica dati</button>
+                                                        <button id="btnFileDati" class="btn btn-secondary"
+                                                                onclick="caricaDatiDaFile()" />Carica dati</button>
                                                         <!--<i><span id="fileSelezionato"></span></i>-->
                                                         <!-- </div>-->
                                                         <!--  <div class="form-check form-check-inline checked">
                                                                <input type="radio" name="radioDati" id="radioDati1" onclick="showButton('btnInserisciDati')">
                                                                 <label for="radioDati1">Manualmente</label>-->
-                                                        <button type='button' id="btnInserisciDati" class='btn btn-outline-secondary btn-font' onclick="showInserimentoDati(true)">Aggiungi dati</button>
+                                                        <button type='button' id="btnInserisciDati"
+                                                                class='btn btn-outline-secondary btn-font'
+                                                                onclick="showInserimentoDati(true)">Aggiungi
+                                                                dati</button>
                                                         <!-- </div>-->
                                                         <!--<div class="form-check form-check-inline checked">
                                                                          <input type="radio" name="radioDati" id="radioDati1" onclick="showButton('btnInserisciDati')">
                                                                          <label for="radioDati1">Manualmente</label>-->
-                                                        <button type='button' id="btnSvuotaTabella" class='btn btn-outline-secondary btn-font' onclick="svuotaTabella()">Svuota tabella</button>
+                                                        <button type='button' id="btnSvuotaTabella"
+                                                                class='btn btn-outline-secondary btn-font'
+                                                                onclick="svuotaTabella()">Svuota tabella</button>
                                                         <!-- </div>-->
                                                 </td>
                                                 <td>
-                                                        <button class="btn btn-primary" id="btnCalcolaEOQ" onclick="elaboraEOQ('tabellaDati')" />Calcola EOQ
+                                                        <button class="btn btn-primary" id="btnCalcolaEOQ"
+                                                                onclick="elaboraEOQ('tabellaDati')" />Calcola EOQ
 
-                                                        <div id="spinner" class="spinner-grow spinner-grow-sm text-light" role="status"></div>
+                                                        <div id="spinner"
+                                                                class="spinner-grow spinner-grow-sm text-light"
+                                                                role="status"></div>
                                                         </button>
                                                 </td>
                                         </tr>
                                         <tr>
 
-                                                <th scope="col" class="small text">Periodo</th>
-                                                <th scope="col" class="small text">Costo unitario
-                                                        <br />
-                                                        <b>(C)</b>
-                                                </th>
+                                                <th scope="col" class="small text">Periodo</th>                                               
                                                 <th scope="col" class="small text">Costo setup ordine
                                                         <br />
                                                         <b>(S)</b>
+                                                </th>
+                                                <th scope="col" class="small text">Costo unitario
+                                                        <br />
+                                                        <b>(C)</b>
                                                 </th>
                                                 <th scope="col" class="small text">Costo mantenimento
                                                         <br />
@@ -71,6 +80,8 @@
                                                         <b>EOQ</b>
                                                 </th>
                                                 <th scope="col" class="small text">
+                                                        <b>Numero lotti</b>
+                                                </th><th scope="col" class="small text">
                                                         <b>Costo totale</b>
                                                 </th>
                                                 <th scope="col">
@@ -94,44 +105,65 @@
                 <div class="modal-content">
                         <div class="modal-header">
                                 <h5 class="modal-title">Inserimento dati</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Chiudi"></button>
                         </div>
                         <div class="modal-body">
-                                <div id="modalError" class="alert alert-danger" style="display: none;">Dati non validi - Riempire tutti i campi
+                                <div id="modalError" class="alert alert-danger" style="display: none;">Dati non validi -
+                                        Riempire tutti i campi
                                 </div>
                                 <form id="formDati">
                                         <div>
-                                                <label for="paramP" class="form-label" aria-describedby="helpP">Periodo</label>
-                                                <input type="number" id="paramP" name="periodo" class="form-control" size="10" onfocusout="validaCampo('paramP')">
+                                                <label for="paramP" class="form-label"
+                                                        aria-describedby="helpP">Periodo</label>
+                                                <input type="number" id="paramP" name="periodo" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramP')">
                                                 <div id="helpP " class="form-text">Inserire il periodo di riferimento
                                                 </div>
-                                                <div id="pVerifica" class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit</div>
+                                                <div id="pVerifica" class="invalid-feedback">Dato obbligatorio -
+                                                        lunghezza max 7 digit</div>
                                         </div>
+                                       <hr /> 
                                         <div>
-                                                <label for="paramC" class="form-label" aria-describedby="helpC">Costo unitario (C)</label>
-                                                <input type="number" id="paramC" name="valC" class="form-control" size="10" onfocusout="validaCampo('paramC')" />
-                                                <div id="helpC" class="form-text">Inserire il costo di acquisto del prodotto in euro</div>
+                                                <label for="paramC" class="form-label" aria-describedby="helpC">Costo
+                                                        unitario prodotto (C)</label>
+                                                <input type="number" id="paramC" name="valC" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramC')" />
+                                                <div id="helpC" class="form-text">Inserire il costo unitario del prodotto da ordinare
+                                                </div>
                                                 <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit
                                                 </div>
                                         </div>
+                                        <hr />
                                         <div>
-                                                <label for="paramS" class="form-label" aria-describedby="helpS">Costo emissione singolo ordine (S)</label>
-                                                <input type="number" id="paramS" name="valS" class="form-control" size="10" onfocusout="validaCampo('paramS')" />
-                                                <div id="helpS" class="form-text">Inserire il costo complessivo per l'emmissione di un ordine</div>
+                                                <label for="paramS" class="form-label" aria-describedby="helpS">Costo
+                                                        emissione singolo ordine (S)</label>
+                                                <input type="number" id="paramS" name="valS" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramS')" />
+                                                <div id="helpS" class="form-text">Inserire il costo complessivo per
+                                                        l'emmissione di un ordine</div>
                                                 <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit
                                                 </div>
                                         </div>
+                                        <hr />
                                         <div>
-                                                <label for="paramH" class="form-label" aria-describedby="helpH">Costo annuo mantenimento singolo prodotto (H) </label>
-                                                <input type="number" id="paramH" name="valH" class="form-control" size="10" onfocusout="validaCampo('paramH')" />
-                                                <div id="helpH" class="form-text ">Inserire la percentuale di costo per il mantenimento annuo di un prodotto.</div>
+                                                <label for="paramH" class="form-label" aria-describedby="helpH">Costo
+                                                        annuo mantenimento singolo prodotto (H) </label>
+                                                <input type="number" id="paramH" name="valH" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramH')" />
+                                                <div id="helpH" class="form-text ">Inserire il costo di
+                                                        mantenimento annuo per un prodotto.</div>
                                                 <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit
                                                 </div>
                                         </div>
+                                        <hr />
                                         <div>
-                                                <label for="paramD" class="form-label" aria-describedby="helpD">Valore domanda annua (D)</label>
-                                                <input type="number" id="paramD" name="valD" class="form-control" size="10" onfocusout="validaCampo('paramD')" />
-                                                <div id="helpD" class="form-text ">Inserire il valore della domanda annua.
+                                                <label for="paramD" class="form-label" aria-describedby="helpD">Valore
+                                                        domanda annua (D)</label>
+                                                <input type="number" id="paramD" name="valD" class="form-control"
+                                                        size="10" onfocusout="validaCampo('paramD')" />
+                                                <div id="helpD" class="form-text ">Inserire il valore della domanda
+                                                        annua.
                                                 </div>
                                                 <div class="invalid-feedback">Dato obbligatorio - lunghezza max 7 digit
                                                 </div>
@@ -141,7 +173,8 @@
                         <div class="modal-footer">
                                 <hr />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                                <button type="button" class="btn btn-primary" id="btnAggiungiDati" data-bs-dismiss="modal" onclick="aggiungiRiga(false)">Aggiungi</button>
+                                <button type="button" class="btn btn-primary" id="btnAggiungiDati"
+                                        data-bs-dismiss="modal" onclick="aggiungiRiga(false)">Aggiungi</button>
                         </div>
                 </div>
         </div>
