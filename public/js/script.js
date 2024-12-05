@@ -1,4 +1,4 @@
-/*libreria javascript - web application EOQ Lotto economico di acquisto*/
+/*libreria javascript - Web Application EOQ Lotto Economico di Ordinazione*/
 
 
 /*inserisciDatiInTabella

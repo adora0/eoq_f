@@ -1,26 +1,6 @@
-/*************generaDati
-   Funzione per la generazione di una serie storica casuale.
-   Richiama l'endpoint /datidomanda per la generazione di una serie storica casuale.
-*/
-/*async function caricaDati() {
-    let numAnni = 20;
-    
-    try {        
-        const data = new URLSearchParams();
-        data.append("n",numAnni);
-        await fetch('/datidomanda', {
-            method: "POST",            
-            body: data
-        }).then(function (response) {
-            return response.text();
-        }).then(function(data){
-            inserisciDatiInTabella(data);
-        });
-    } catch (error) {
-        showAlert('Errore', 'Errore durante la generazione di dati' + error);
-    }
-}*/
-
+/*libreria javascript - Web Application EOQ Lotto Economico di Ordinazione
+ routing delle request
+ */
 
 /************elaboraEOQ
   Funzione che richiama l'endpoint /elab per il calcolo del valore EOQ
@@ -43,14 +23,17 @@ async function elaboraEOQ(tabellaDati) {
            
         data.append("dati",convertiTabella(tabellaDati));        
         data.append("flagPrev",1);
-        data.append("nPrev",3);        
+        data.append("nPrev",1);        
         await fetch('/elab', {
             method: "POST",
             body:data
-        }).then(function (response) {                                         
-            return response.text();
+        }).then(function (response) { 
+            if(response.ok)                                 
+                return response.text();
+            else 
+                throw new Error('Problema nel modulo Python');
         }).then(function (data) {             
-            // Aggiorna la parte della pagina con il nuovo contenuto            
+            /* Aggiorna la parte della pagina con il nuovo contenuto  */                   
             inserisciDatiInTabella(data,true);
            
         }).catch(function(error) {
@@ -103,3 +86,27 @@ async function showInfo() {
     }
 }
 
+
+/****DA RIMUOVERE**************/
+/*************generaDati
+   Funzione per la generazione di una serie storica casuale.
+   Richiama l'endpoint /datidomanda per la generazione di una serie storica casuale.
+*/
+/*async function caricaDati() {
+    let numAnni = 20;
+    
+    try {        
+        const data = new URLSearchParams();
+        data.append("n",numAnni);
+        await fetch('/datidomanda', {
+            method: "POST",            
+            body: data
+        }).then(function (response) {
+            return response.text();
+        }).then(function(data){
+            inserisciDatiInTabella(data);
+        });
+    } catch (error) {
+        showAlert('Errore', 'Errore durante la generazione di dati' + error);
+    }
+}*/
