@@ -78,7 +78,7 @@ app.post('/elab', (req, res,next) => {
 
     log('Richiesta elaborazione EOQ', 'INFO');
     const datiAcquisti=req.body;     
-    let risultati;        
+  
     /*Creo il processo di esecuzione codice python, passando i dati come 
     argomento e il timeout per la gestione degli errori */
     const python = spawn('python', 

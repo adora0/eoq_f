@@ -27,13 +27,13 @@
                                                         <!-- <div class="form-check form-check-inline">
                                                                 <input type="radio" name="radioDati" id="radioDati2" onclick="showButton('btnFileDati')">
                                                                 <label for="radioDati2">da File</label>-->
-                                                        <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDatiDaFile()" />Carica dati</button>
+                                                        <button id="btnFileDati" class="btn btn-secondary" onclick="caricaDatiDaFile()" title="Carica dati da file" />Carica dati</button>
                                                         <!--<i><span id="fileSelezionato"></span></i>-->
                                                         <!-- </div>-->
                                                         <!--  <div class="form-check form-check-inline checked">
                                                                <input type="radio" name="radioDati" id="radioDati1" onclick="showButton('btnInserisciDati')">
                                                                 <label for="radioDati1">Manualmente</label>-->
-                                                        <button type='button' id="btnInserisciDati" class='btn btn-outline-secondary btn-font' onclick="showInserimentoDati(true)">Aggiungi dati
+                                                        <button type='button' id="btnInserisciDati" class='btn btn-outline-secondary btn-font' onclick="showInserimentoDati(true)" title="Inserisci dati manualmente">Aggiungi dati
                                                         </button>
                                                         <!-- </div>-->
                                                         <!--<div class="form-check form-check-inline checked">
@@ -44,7 +44,7 @@
                                                 </td>
                                                 <td>
                                                         <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox" value="" id="checkForecast">
+                                                                <input class="form-check-input" type="checkbox" value="" id="checkForecast" onclick="infoForecast(this.checked);">
                                                                 <label class="form-check-label" for="checkForecast">
                                                                         Aggiungi previsione
                                                                 </label>
@@ -60,14 +60,14 @@
                                         <tr>
 
                                                 <th scope="col" class="small text">Periodo</th>
-                                                <th scope="col" class="small text">Costo setup ordine
-                                                        <br />
-                                                        <b>(S)</b>
-                                                </th>
                                                 <th scope="col" class="small text">Costo unitario
                                                         <br />
                                                         <b>(C)</b>
                                                 </th>
+                                                <th scope="col" class="small text">Costo setup ordine
+                                                        <br />
+                                                        <b>(S)</b>
+                                                </th>                                                
                                                 <th scope="col" class="small text">Costo mantenimento
                                                         <br />
                                                         <b>(H)</b>
@@ -101,7 +101,7 @@
         </div>
 </div>
 
-<div class="modal fade" id="datainput" tabindex="-1" aria-hidden="true" role="dialog">
+<div class="modal fade" id="datainput" tabindex="-1" role="dialog">
         <div class="modal-dialog">
                 <div class="modal-content">
                         <div class="modal-header">

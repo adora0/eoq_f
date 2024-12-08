@@ -13,6 +13,7 @@
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/script.js"></script>
   <script src="/js/route.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>EOQ - Calcolo lotto economico di acquisto</title>
 
 </head>
@@ -29,21 +30,25 @@
       <div class="navbar-title">EOQ - Calcolo Lotto Economico di Acquisto</div>
     </div>
     <!-- Contenuto principale -->
-    <div id="main">
-      <div class="box border border-2">
-        <br />
-        <br />
-        <p>
-          <b>Applicazione per il calcolo del Lotto Economico di Ordinazione - EOQ</b>
-        </p>
-        <p>Premere su <b><a href="#" onclick="showParams()">EOQ</a></b> per inserire i parametri di calcolo.<br />
-          I dati possono essere inseriti manualmente o caricando un file esterno in formato CSV
-        </p>
-        <br /><br />
-        <p>Premere su <b><a href="#" onclick="showInfo()">Info</a></b> per leggere una breve guida</p>
+    <div class="row align-items-start">     
+      <div id="main">
+        <div class="box border border-2">
+          <br />
+          <br />
+          <p>
+            <b>Applicazione per il calcolo del Lotto Economico di Ordinazione - EOQ</b>
+          </p>
+          <p>Premere su <b><a href="#" onclick="showParams()">EOQ</a></b> per inserire i parametri di calcolo.<br />
+            I dati possono essere inseriti manualmente o caricando un file esterno in formato CSV
+          </p>
+          <br /><br />
+          <p>Premere su <b><a href="#" onclick="showInfo()">Info</a></b> per leggere una breve guida</p>
+        </div>
       </div>
+      <div id="result">      
+        <canvas id="eoqGrafico" class="grafico" width="400"></canvas>       
+      </div>      
     </div>
-    <div id="result"></div>
     <footer class="footer">
       <hr />
       <cite>Project work Traccia 1.1 Andrea D'Orazio a.a. 2024/2025</cite>

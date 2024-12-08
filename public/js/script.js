@@ -1,6 +1,5 @@
 /*libreria javascript - Web Application EOQ Lotto Economico di Ordinazione*/
 
-
 /*inserisciDatiInTabella
 funzione per il caricamento dei dati nella table HTML
 Parametri:
@@ -86,7 +85,7 @@ function inserisciDatiInTabella(dati, svuota) {
         row.appendChild(cell);
 
         cell = document.createElement('td');
-        cell.innerHTML = "<a href='#'><img src='/images/garbage.png' onclick='removeRow(this)' width='30px' /></a>";
+        cell.innerHTML = "<center><a href='#'><img src='/images/garbage.png' onclick='removeRow(this)' width='20px' /></a></center>";
         row.appendChild(cell);
         tabella.insertBefore(row, tabella.firstChild);
 
@@ -115,7 +114,7 @@ function caricaDatiDaFile() {
         reader.onload = function (e) {
             fileJSON = csvToJson(e.target.result);
             if (fileJSON != '') {
-                inserisciDatiInTabella(fileJSON,false);
+                inserisciDatiInTabella(fileJSON,true);
                 showAlert('File dati', 'File ' + file.name + ' correttamente caricato');
             }
         }
@@ -310,6 +309,50 @@ function showAlert(titolo, messaggio) {
     modal.show();
     document.getElementById("alertTitolo").innerHTML = titolo;
     document.getElementById("alertMessaggio").innerHTML = messaggio;
+}
+
+function showGraph(data) { 
+    let d=JSON.parse(data); 
+    const config = {
+        type: 'line',
+        data: {},
+        options: {},
+        plugins: []
+      }  
+    new Chart(
+        document.getElementById('eoqGrafico'),
+        {
+          type: 'line',
+          data: {
+            labels: d.map(row => row.periodo),
+            datasets: [
+              {
+                label: 'EOQ',
+                data: d.map(row => row.valEOQ)
+              }
+            ],
+            datasets: [
+                {
+                  label: 'EOQ',
+                  data: d.map(row => row.valCT)
+                }
+              ]
+          }
+        }
+      );   
+}
+
+/*infoForecast
+    Visualizza un alert con le informazioni sul forecast
+    Parametri:
+    - checked, boolean se true viene visualizza l'alert
+*/
+function infoForecast(checked){
+    if(checked){
+        showAlert('Informazioni previsione domanda', 'Selezionando la previsione verrà stimata la domanda di beni.'+ 
+                  '<br />Viene utilizzato il modello di stima autoregressivo <b>ARIMA</b> per serie stazionarie. '+ 
+                   'La previsione è per un solo periodo.');
+    }
 }
 
 /*showButton 

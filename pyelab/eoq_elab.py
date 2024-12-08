@@ -48,7 +48,7 @@ def calcola_EOQ(df):
 #  df, dataframe con la serie storica dei dati
 # Valore restituito:
 #  dataframe, completo con un periodo di previsione.
-def calcola_forecast(df, n_previsioni):    
+def calcola_forecast(df):    
     #imposto il dataframe per l'utilizzo del modello
     data_f = pd.DataFrame({
         'unique_id':'eoq_f',
@@ -80,27 +80,26 @@ try:
     #leggo i dati passati in json
     dati = json.loads(sys.argv[1])
     dati_tabella = json.loads(dati["dati"]) #tabella dati
-    flag_previsione = json.loads(dati["flagPrev"])#flag se richiesta previsione
-    n_previsioni = int(json.loads(dati["nPrev"]))#numero periodi previsione      
-      
+    flag_previsione = json.loads(dati["flagPrev"])#flag se richiesta previsione       
+
     #creo il DataFrame del package Pandas
     dati_mag=pd.DataFrame(dati_tabella)
     
     #se flag_previsione è uguale a 1 eseguo la previsione
     if flag_previsione == 1 : 
-        dati_c=calcola_forecast(dati_mag, n_previsioni)
+        dati_c=calcola_forecast(dati_mag)
         #riga previsione 
         previsione=dati_mag.head(1).copy()
-        previsione.loc[:,('valD')]=dati_c.loc[:,('AutoARIMA')]
-        previsione.loc[:,('periodo')]=dati_c.loc[:,('ds')]
-         #aggiungo la previsione al dataset
-        dati_f = pd.concat([previsione,dati_mag])
+        previsione.loc[0,('valD')]=dati_c.loc[0,('AutoARIMA')]
+        previsione.loc[0,('periodo')]=dati_c.loc[0,('ds')]
+        #aggiungo la previsione al dataset
+        dati_mag = pd.concat([previsione,dati_mag])
    
     #richiamo la funzione per il calcolo dell'EOQ
-    calcola_EOQ(dati_f)
+    calcola_EOQ(dati_mag)
 
     #trasformo il dataframe in json e lo restituisco 
-    print(dati_f.to_json(orient="records"))
+    print(dati_mag.to_json(orient="records"))
     #codice fine processo OK
     exit(0)
 

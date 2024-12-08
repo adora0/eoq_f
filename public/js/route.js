@@ -20,10 +20,16 @@ async function elaboraEOQ(tabellaDati) {
             return;
         }
         document.getElementById("spinner").style.display = 'inline-block';
-           
+        
         data.append("dati",convertiTabella(tabellaDati));        
-        data.append("flagPrev",1);
-        data.append("nPrev",1);        
+                
+        /*verifico se è stato selezionata la richiesta di previsioni*/
+        if(document.getElementById("checkForecast").checked){
+            data.append("flagPrev",1);            
+        }else{
+            data.append("flagPrev", 0);
+        }
+              
         await fetch('/elab', {
             method: "POST",
             body:data
@@ -35,7 +41,7 @@ async function elaboraEOQ(tabellaDati) {
         }).then(function (data) {             
             /* Aggiorna la parte della pagina con il nuovo contenuto  */                   
             inserisciDatiInTabella(data,true);
-           
+            showGraph(data);
         }).catch(function(error) {
             showAlert('Errore', 'Errore durante il calcolo EOQ:' + error);
         });
