@@ -14,13 +14,12 @@
 async function elaboraEOQ(tabellaDati) {    
         const data = new URLSearchParams(); 
         let dati=convertiTabella(tabellaDati);
-   
+
         if(dati=="") {
             showAlert('Attenzione', 'Tabella dati vuota');
             return;
         }
-        document.getElementById("spinner").style.display = 'inline-block';
-        
+        document.getElementById("spinner").style.display = 'inline-block';    
         data.append("dati",convertiTabella(tabellaDati));        
                 
         /*verifico se è stato selezionata la richiesta di previsioni*/
@@ -41,7 +40,7 @@ async function elaboraEOQ(tabellaDati) {
         }).then(function (data) {             
             /* Aggiorna la parte della pagina con il nuovo contenuto  */                   
             inserisciDatiInTabella(data,true);
-            showGraph(data);
+            showResult(data);
         }).catch(function(error) {
             showAlert('Errore', 'Errore durante il calcolo EOQ:' + error);
         });

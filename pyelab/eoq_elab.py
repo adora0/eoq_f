@@ -35,11 +35,17 @@ def calcola_EOQ(df):
     df["valEOQ"]=round(nm.sqrt((2 * df["valS"] * df["valD"] / df["valH"])),0)
     #calcolo numero di lotti: D/EOQ
     df["valNL"]=round(df["valD"]/df["valEOQ"], 0)
+    #calcolo costi immagazzinamento
+    df["valCM"]=round(df["valH"] * (df["valEOQ"] / 2 ),0)
+    #calcolo costi di ordinazione
+    df["valCO"]=round((df["valD"]/df["valEOQ"])*df["valS"],0)
     #calcolo costo totale 
-    df["valCT"]=round(((df["valD"]/df["valEOQ"])*df["valS"] ) 
-                         + (df["valH"] * (df["valEOQ"] / 2 )) 
-                         + (df["valD"] * df["valC"]),0)
-    return df;
+    # df["valCT"]=round(((df["valD"]/df["valEOQ"])*df["valS"] ) 
+       #                  + (df["valH"] * (df["valEOQ"] / 2 )) 
+    #                     + (df["valEOQ"] * df["valC"]),0)
+    df["valCT"]=df["valCM"] +df["valCO"] +  (df["valD"] * df["valC"])
+    
+    return df
 
 #calcola_forecast - Modulo per il calcolo della previsione domanda
 # Utilizza il modello AutoARIMA del package StatsForecast

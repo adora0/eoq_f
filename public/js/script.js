@@ -1,5 +1,7 @@
 /*libreria javascript - Web Application EOQ Lotto Economico di Ordinazione*/
 
+let gEOQ, gDomanda;
+
 /*inserisciDatiInTabella
 funzione per il caricamento dei dati nella table HTML
 Parametri:
@@ -27,8 +29,8 @@ function inserisciDatiInTabella(dati, svuota) {
         cell.textContent = d.periodo;
         cell.setAttribute('name', 'periodo');
         cell.classList.add("text");
-        row.appendChild(cell);     
-        
+        row.appendChild(cell);
+
         cell = document.createElement('td');
         cell.textContent = d.valC;
         cell.classList.add("numeric");
@@ -73,7 +75,7 @@ function inserisciDatiInTabella(dati, svuota) {
         else
             cell.textContent = '';
         row.appendChild(cell);
-     
+
         /*Numero lotti*/
         cell = document.createElement('td');
         cell.classList.add("numeric");
@@ -109,12 +111,12 @@ function caricaDatiDaFile() {
     input.setAttribute('accept', '.csv');
     input.onchange = e => {
         let file = e.target.files[0];
-       /* document.getElementById("fileSelezionato").innerHTML = file.name;*/
+        /* document.getElementById("fileSelezionato").innerHTML = file.name;*/
         const reader = new FileReader();
         reader.onload = function (e) {
             fileJSON = csvToJson(e.target.result);
             if (fileJSON != '') {
-                inserisciDatiInTabella(fileJSON,true);
+                inserisciDatiInTabella(fileJSON, true);
                 showAlert('File dati', 'File ' + file.name + ' correttamente caricato');
             }
         }
@@ -130,7 +132,7 @@ function convertiTabella(table) {
     let dt = document.getElementById(table);
     const dati = [];
     // Ottieni i dati delle righe 
-    dt.querySelectorAll('tr').forEach(tr => {        
+    dt.querySelectorAll('tr').forEach(tr => {
         const row = {};
         tr.querySelectorAll('td').forEach((td, i) => {
             if (td.getAttribute('name')) {
@@ -139,10 +141,10 @@ function convertiTabella(table) {
         });
         dati.push(row);
     });
-    
+
     // Converti l'array di oggetti in JSON se la tabella è piena
     return (dati.length > 0) ? JSON.stringify(dati) : "";
-    
+
 }
 
 
@@ -180,8 +182,8 @@ function aggiungiRiga() {
 
     /*form valido inserisco i dati nella tabella html*/
     riga['periodo'] = document.getElementById('paramP').value;
-    riga['valD'] = document.getElementById('paramD').value;    
-    riga['valC'] = document.getElementById('paramC').value;    
+    riga['valD'] = document.getElementById('paramD').value;
+    riga['valC'] = document.getElementById('paramC').value;
     riga['valS'] = document.getElementById('paramS').value;
     riga['valH'] = document.getElementById('paramH').value;
     dati.push(riga);
@@ -270,9 +272,11 @@ function csvToJson(fileCsv) {
 
 /*svuotaTabella
 Funzione per la rimozione di tutti i dati inseriti in tabella*/
-function svuotaTabella(){
-    document.getElementById("tabellaDati").innerHTML="";
+function svuotaTabella() {
+    document.getElementById("tabellaDati").innerHTML = "";
+    clearResult();
 }
+
 
 /*showInserimentoDati 
     Funzione per la visualizazione del form inserimento dati di tipo modal.
@@ -311,35 +315,77 @@ function showAlert(titolo, messaggio) {
     document.getElementById("alertMessaggio").innerHTML = messaggio;
 }
 
-function showGraph(data) { 
-    let d=JSON.parse(data); 
-    const config = {
-        type: 'line',
-        data: {},
-        options: {},
-        plugins: []
-      }  
-    new Chart(
-        document.getElementById('eoqGrafico'),
+/*showResult
+Funnzione che visualizza i risultati dell'elaborazione.
+Vengono mostrati i valori dell'EOQ, dei costi totali, 
+di ordinazione e mantenimento, oltre ai grafici con 
+l'andamento della domanda e della dimensione del lotto*/
+function showResult(data) {
+
+    let d = JSON.parse(data);
+    let txtRisultati=document.getElementById("testoRisultati");
+
+    txtRisultati.innerHTML="<h4>Risultati elaborazione</h4><br />EOQ: <b>" + d[0].valEOQ + "</b><br />" +
+                           "Costo mantenimetno: <b>" + d[0].valCM + "</b><br />" +
+                           "Costo ordinazione: <b>" + d[0].valCO + "</b><br />" +
+                            "Costo totale: <b>" + d[0].valCT + "</b><br />"
+    d.sort((a, b) => a.periodo - b.periodo);
+
+    gEOQ = new Chart(
+        document.getElementById('eoqGraphEOQ'),
         {
-          type: 'line',
-          data: {
-            labels: d.map(row => row.periodo),
-            datasets: [
-              {
-                label: 'EOQ',
-                data: d.map(row => row.valEOQ)
-              }
-            ],
-            datasets: [
-                {
-                  label: 'EOQ',
-                  data: d.map(row => row.valCT)
+            type: 'line',
+            data: {
+                labels: d.map(row => row.periodo),
+                datasets: [
+                    {
+                        label: 'Costi totali',
+                        data: d.map(row => row.valEOQ)
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Grafico EOQ',
+                        font: { size: 16 }
+                    }
                 }
-              ]
-          }
+            }
         }
-      );   
+    );
+    gDomanda = new Chart(
+        document.getElementById('eoqGraphD'),
+        {
+            type: 'line',
+            data: {
+                labels: d.map(row => row.periodo),
+                datasets: [
+                    {
+                        label: 'Domanda annua',
+                        data: d.map(row => row.valD),
+                        borderColor: 'rgba(255, 99, 132, 52)'
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Grafico Domanda annua',
+                        font: { size: 16 }
+                    }
+                }
+            }
+        }
+    );
+}
+
+function clearResult() {
+    document.getElementById("testoRisultati").innerHTML="";
+    if (gEOQ) gEOQ.destroy();
+    if (gDomanda) gDomanda.destroy();
 }
 
 /*infoForecast
@@ -347,13 +393,14 @@ function showGraph(data) {
     Parametri:
     - checked, boolean se true viene visualizza l'alert
 */
-function infoForecast(checked){
-    if(checked){
-        showAlert('Informazioni previsione domanda', 'Selezionando la previsione verrà stimata la domanda di beni.'+ 
-                  '<br />Viene utilizzato il modello di stima autoregressivo <b>ARIMA</b> per serie stazionarie. '+ 
-                   'La previsione è per un solo periodo.');
+function infoForecast(checked) {
+    if (checked) {
+        showAlert('Informazioni previsione domanda', 'Selezionando la previsione verrà stimata la domanda di beni.' +
+            '<br />Viene utilizzato il modello di stima autoregressivo <b>ARIMA</b> per serie stazionarie. ' +
+            'La previsione è per un solo periodo.');
     }
 }
+
 
 /*showButton 
     Funzione per la visualizazione dinamica del form inserimento dati se inseriti manualmente o inseriti tramite file csv.
