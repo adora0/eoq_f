@@ -324,7 +324,7 @@ function showResult(data) {
 
     let d = JSON.parse(data);
     let txtRisultati=document.getElementById("testoRisultati");
-
+    clearResult();
     txtRisultati.innerHTML="<h4>Risultati elaborazione</h4><br />EOQ: <b>" + d[0].valEOQ + "</b><br />" +
                            "Costo mantenimetno: <b>" + d[0].valCM + "</b><br />" +
                            "Costo ordinazione: <b>" + d[0].valCO + "</b><br />" +
