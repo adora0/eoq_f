@@ -95,27 +95,27 @@ function inserisciDatiInTabella(dati, svuota) {
 }
 
 /*caricaDatiDaFile
-  Funzione che legge il file dati in formato csv.
-  I file consentiti devono avere il delimitatore ';' e le letiabili d'intestazione 
+  Funzione che legge il file dati in formato csv e li visualizza nella tabella html
+  I file consentiti devono avere il delimitatore ';' e la segunete intestazione 
   periodo - periodo di riferimento anno, mese, trimestre
   valS - valore Setup
   valH - valore costo gestione per prodotto per periodo
   valD - quantità domanda
-  Valore restituito:
-  Oggetto JSON con i dati da elaborare per il calcolo dell'EOQ.
+  valC - costo unitario prodotto  
 */
 function caricaDatiDaFile() {
-
+    /*visualizzo il dialog per la selezione del file*/
     let input = document.createElement('input');
     input.type = 'file';
     input.setAttribute('accept', '.csv');
     input.onchange = e => {
-        let file = e.target.files[0];
-        /* document.getElementById("fileSelezionato").innerHTML = file.name;*/
+        /*se il file è selezionato lo converto da csv a json*/
+        let file = e.target.files[0];       
         const reader = new FileReader();
         reader.onload = function (e) {
             fileJSON = csvToJson(e.target.result);
             if (fileJSON != '') {
+                /*inserisco i dati del file nella tabella HTML*/
                 inserisciDatiInTabella(fileJSON, true);
                 showAlert('File dati', 'File ' + file.name + ' correttamente caricato');
             }
@@ -126,15 +126,18 @@ function caricaDatiDaFile() {
 }
 
 /*convertiTabella
-funzione che converte la table dati in formato JSON per l'elaborazione
+funzione che converte la tabella html dati in formato JSON per l'elaborazione
 */
 function convertiTabella(table) {
     let dt = document.getElementById(table);
     const dati = [];
-    // Ottieni i dati delle righe 
+    /*scorro tutti i tag riga <tr> della tabella*/ 
     dt.querySelectorAll('tr').forEach(tr => {
         const row = {};
+        /*scorro tutte le celle della riga*/
         tr.querySelectorAll('td').forEach((td, i) => {
+            /*se è una cella con attributo 'name' è una variabile e 
+             la converto in numero e la inserisco nell'array di oggetti javascript*/
             if (td.getAttribute('name')) {
                 row[td.getAttribute('name')] = parseInt(td.textContent.trim() || 0);
             }
@@ -142,7 +145,7 @@ function convertiTabella(table) {
         dati.push(row);
     });
 
-    // Converti l'array di oggetti in JSON se la tabella è piena
+    /*Converto l'array di oggetti in JSON se la tabella è piena*/
     return (dati.length > 0) ? JSON.stringify(dati) : "";
 
 }
@@ -285,8 +288,10 @@ function svuotaTabella() {
     Pulisco e resetto le classi in caso di visualizzazione precedente.   
 */
 function showInserimentoDati(flagVuoto) {
+    /*istanzio l'oggetto Modal di bootstrap*/
     let modal = new bootstrap.Modal(document.getElementById('datainput'));
-
+    /*visualizzo i campi per l'insermimento dati, se il flag è false visualizzo 
+      i dati precedentemente insetiti, provengo da un inserimento parziale o errato*/
     if (flagVuoto) {
         let f = document.getElementById("formDati");
         let err = document.getElementById('modalError');
