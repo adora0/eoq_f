@@ -1,3 +1,4 @@
+# coding=UTF-8
 ##########################################################################
 # Web Application calcolo Lotto Economico di Ordinazione
 # Project Work Traccia 1.1 Lotto Economico di Ordinazione (EOQ) per 
@@ -11,7 +12,6 @@
 #  argomento.
  ########################################################################/
  
-
 # import delle librerie
 import sys
 import os

@@ -23,7 +23,7 @@ function inserisciDatiInTabella(dati, svuota) {
     JSON.parse(dati).reverse().forEach((d) => {
         /*aggiungo una riga*/
         let row = document.createElement('tr');
-
+       
         /*aggiungo le celle con i dati*/
         let cell = document.createElement('td');
         cell.textContent = d.periodo;
@@ -139,12 +139,12 @@ function convertiTabella(table) {
             /*se è una cella con attributo 'name' è una variabile e 
              la converto in numero e la inserisco nell'array di oggetti javascript*/
             if (td.getAttribute('name')) {
-                row[td.getAttribute('name')] = parseInt(td.textContent.trim() || 0);
+                row[td.getAttribute('name')] = parseFloat(td.textContent.trim() || 0);
             }
         });
         dati.push(row);
     });
-
+    
     /*Converto l'array di oggetti in JSON se la tabella è piena*/
     return (dati.length > 0) ? JSON.stringify(dati) : "";
 
@@ -158,7 +158,7 @@ function convertiTabella(table) {
   - il riferimento all'oggetto riga appena inserito
 */
 function aggiungiRiga() {
-    /*leggo i dati dal form modal*/
+    /*leggo i dati dal form modal*/  
     const dati = [];
     let riga = {};
     let flagFormValido = true;

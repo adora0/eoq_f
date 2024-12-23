@@ -8,13 +8,14 @@ Anno accademico : 2024/2025
 
 Applicazione web per il calcolo del Lotto Economico di Ordinazione
 Tecnologia utilizzata:
-NodeJS v18.18.0, Express 
+HTML5, CSS Bootstrap
+Javascript: NodeJS v18.18.0, Express, Bootstrap, ChartJS
 Python 3.8.10, Numpy, Pandas, StatsForecast
-Javascript: Bootstrap, ChartJS
+
 
 *Installazione:
 Python
-Installare python versione 3.8.10 o superiore e i seguenti pacchetti
+Installare python versione 3.8.10 o superiore e i seguenti pacchetti(controllare file requirements.txt)
 - Numpy
 - Pandas
 - StatsForecast
@@ -25,15 +26,40 @@ Installare  nodejs versione 18 o superiore con i seguenti pacchetti:
 
 Javascript
 Le librerie javascript necessarie sono già disponibili nella cartella /public/js
-- Bootstrap
-- ChartJS
+- Bootstrap v5.3.3
+- ChartJS v4.4.7
 
 *Esecuzione in locale
 Avviare l'applicazione Node con il comando 
-:>node app
+node app
 
 Accedere dal browser all'indirizzo http://localhost:3000
 Premere su EOQ per visualizzare la pagina per l'inserimento dei dati.
-Inserire i dati relativi a :
--Costo unitario del prodotto
+E' necessario inserire i dati relativi a :
+-Periodo di riferimento (ad esempio l'anno)
+-Costo unitario del prodotto (C)
+-Costo setup ordine (S)
+-Costo mantenimento (H)
+-Valore Domanda (D)
+
+I dati possono essere inseriti col pulsante |Aggiungi dati| per l'insermimento manuale di una 
+riga alla voltqa, oppure con il pulsante |Carica dati| per il caricamento da file csv con dati
+in serie storica.
+
+
+!Il file deve essere struttura nel seguente modo :
+- intestazione con le variabili periodo;valC;valS;valH,;valD
+- il separatore deve essere il punto e virgola ';' 
+
+Per procedere con il calcolo premere sul pulsante |Calcola EOQ| .
+E' possibile spuntare la voce 'Aggiungi proiezione' per aggiungere al calcolo la stima della domanda annua
+per il periodo t+1. La stima applica il modello di previsione AutoARIMA senza stagionalità !utilizzare solo per
+serie storiche superiori ai 15 periodi.
+
+OUTPUT
+La tabella viene aggiornata con i dati relativi a :
+- valore EOQ
+- numero di lotti nel periodo (anno)
+- Costo totale, calcolato con la somma dei costi di mantenimento, ordinazione e acquisto
+- Grafici relativi andamento al valore di lotto economico di ordinazione e domanda annua
 
