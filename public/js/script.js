@@ -344,7 +344,7 @@ function showResult(data) {
                 labels: d.map(row => row.periodo),
                 datasets: [
                     {
-                        label: 'Costi totali',
+                        label: 'EOQ',
                         data: d.map(row => row.valEOQ)
                     }
                 ]
