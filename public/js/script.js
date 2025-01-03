@@ -330,8 +330,10 @@ function showResult(data) {
     let d = JSON.parse(data);
     let txtRisultati=document.getElementById("testoRisultati");
     clearResult();
-    txtRisultati.innerHTML="<h4>Risultati elaborazione</h4><br />EOQ: <b>" + d[0].valEOQ + "</b><br />" +
-                           "Costo mantenimetno: <b>" + d[0].valCM + "</b><br />" +
+    txtRisultati.innerHTML="<h4>Risultati elaborazione</h4><br />" + 
+                           "Periodo: <b>" + d[0].periodo + "</b><br />" +
+                           "EOQ: <b>" + d[0].valEOQ + "</b><br />" +
+                           "Costo mantenimento: <b>" + d[0].valCM + "</b><br />" +
                            "Costo ordinazione: <b>" + d[0].valCO + "</b><br />" +
                             "Costo totale: <b>" + d[0].valCT + "</b><br />"
     d.sort((a, b) => a.periodo - b.periodo);
@@ -345,7 +347,7 @@ function showResult(data) {
                 datasets: [
                     {
                         label: 'EOQ',
-                        data: d.map(row => row.valEOQ)
+                        data: d.length ? d.map(row => row.valEOQ) : []
                     }
                 ]
             },
