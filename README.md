@@ -1,9 +1,14 @@
 ## eoq_f
 **Project Work - Corso di Laurea in Informatico per le Aziende Digitali L31**
+
 **Tema n. 1 La digitalizzazione dell’impresa**
+
 **Traccia 1.1 Lotto Economico di Ordinazione (EOQ) per materiali a domanda indipendente**
+
 **Autore: Andrea D'Orazio (matricola 0312300107)**
+
 *Anno accademico : 2024/2025*
+
 
 Applicazione web per il calcolo del Lotto Economico di Ordinazione
 **Tecnologia utilizzata:**
