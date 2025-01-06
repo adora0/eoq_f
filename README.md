@@ -1,7 +1,7 @@
-# eoq_f
-## Project Work - Corso di Laurea in Informatico per le Aziende Digitali L31
-## Tema n. 1 La digitalizzazione dell’impresa
-## Traccia 1.1 Lotto Economico di Ordinazione (EOQ) per materiali a domanda indipendente
+## eoq_f
+**Project Work - Corso di Laurea in Informatico per le Aziende Digitali L31**
+**Tema n. 1 La digitalizzazione dell’impresa**
+**Traccia 1.1 Lotto Economico di Ordinazione (EOQ) per materiali a domanda indipendente**
 **Autore: Andrea D'Orazio (matricola 0312300107)**
 *Anno accademico : 2024/2025*
 
@@ -12,9 +12,9 @@ Javascript: NodeJS v18.18.0, Express, Bootstrap, ChartJS
 Python 3.8.10, Numpy, Pandas, StatsForecast
 
 
-**Installazione:**
+### Requisiti installazione:
 *Python*
-Installare python versione 3.8.10 o superiore e i seguenti pacchetti(controllare file requirements.txt)
+Installare python versione 3.8.10 o superiore e i seguenti pacchetti(controllare file *requirements.txt*)
 - Numpy
 - Pandas
 - StatsForecast
@@ -28,26 +28,28 @@ Le librerie javascript necessarie sono già disponibili nella cartella /public/j
 - Bootstrap v5.3.3
 - ChartJS v4.4.7
 
-**Esecuzione in locale**
+### Esecuzione in locale
 Avviare l'applicazione Node con il comando 
 `node app`
 
-Accedere dal browser all'indirizzo http://localhost:3000
-Premere su EOQ per visualizzare la pagina per l'inserimento dei dati.
+Accedere dal browser all'indirizzo **http://localhost:3000**
+Premere su *EOQ* per visualizzare la pagina per l'inserimento dei dati.
 E' necessario inserire i dati relativi a :
--Periodo di riferimento (ad esempio l'anno)
--Costo unitario del prodotto (C)
--Costo setup ordine (S)
--Costo mantenimento (H)
--Valore Domanda (D)
+- Periodo di riferimento (ad esempio l'anno)
+- Costo unitario del prodotto (C)
+- Costo setup ordine (S)
+- Costo mantenimento (H)
+- Valore Domanda (D)
 
 I dati possono essere inseriti col pulsante *Aggiungi dati* per l'insermimento manuale di una 
-riga alla volta, o in alternativa con il pulsante *Carica dati* per il caricamento da file csv con i dati relativi a più periodi.
+riga alla volta, o in alternativa con il pulsante *Carica dati* per il caricamento da file **csv** con i dati relativi a più periodi.
 
-Il file deve essere struttura nel seguente modo :
+**Struttura del file .csv**
+Il file deve essere strutturato nel seguente modo :
 - intestazione con le variabili 
-  |periodo|valC|valS|valH|valD|
-- il separatore deve essere il punto e virgola `;` 
+| Periodo | valC | valS | valH | valD | 
+| --- | --- | --- | --- | --- |
+- il separatore deve essere il *punto e virgola* `;` 
 
 Per procedere con il calcolo premere sul pulsante *Calcola EOQ* .
 E' possibile spuntare la voce *Aggiungi proiezione* per aggiungere al calcolo la stima della domanda annua
@@ -59,5 +61,11 @@ La tabella viene aggiornata con i dati relativi a :
 - valore EOQ
 - numero di lotti nel periodo
 - Costo totale, calcolato con la somma dei costi di mantenimento, ordinazione e acquisto
-- Grafici relativi andamento al valore di lotto economico di ordinazione e domanda annua
+
+Nel riquadro **Risultati elaborazione** verranno mostrati i valori dell'ultimo periodo calcolato :
+- valore EOQ
+- costo di mantenimento totale per il periodo
+- costo di ordinazione totale per il periodo
+- Costo totale per il periodo
+L' output è corredato di deu grafici relativi all'andamento del lotto economico di ordinazione e domanda annua
 

@@ -335,7 +335,7 @@ function showResult(data) {
                            "EOQ: <b>" + d[0].valEOQ + "</b><br />" +
                            "Costo mantenimento: <b>" + d[0].valCM + "</b><br />" +
                            "Costo ordinazione: <b>" + d[0].valCO + "</b><br />" +
-                            "Costo totale: <b>" + d[0].valCT + "</b><br />"
+                           "Costo totale: <b>" + d[0].valCT + "</b><br />"
     d.sort((a, b) => a.periodo - b.periodo);
 
     gEOQ = new Chart(
@@ -347,7 +347,7 @@ function showResult(data) {
                 datasets: [
                     {
                         label: 'EOQ',
-                        data: d.length ? d.map(row => row.valEOQ) : []
+                        data: d.map(row => row.valEOQ)
                     }
                 ]
             },
@@ -407,24 +407,3 @@ function infoForecast(checked) {
             'La previsione è per un solo periodo.');
     }
 }
-
-
-/*showButton 
-    Funzione per la visualizazione dinamica del form inserimento dati se inseriti manualmente o inseriti tramite file csv.
-    Parametri: 
-    - btnID, valore id dell'input di tipo button da visualizzare.
-*/
-/*function showButton(btnID) {
-    document.getElementById(btnID).classList.remove("invisible");
-    document.getElementById(btnID).classList.add("visible");
-    if (btnID === "btnInserisciDati") {
-        document.getElementById("btnFileDati").classList.add("invisible");
-        document.getElementById("btnFileDati").classList.remove("visible");
-        document.getElementById('fileSelezionato').innerHTML = "";
-    }
-    if (btnID === "btnFileDati") {
-        document.getElementById("btnInserisciDati").classList.add("invisible");
-        document.getElementById("btnInserisciDati").classList.remove("visible");
-    }
-
-}*/
