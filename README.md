@@ -1,37 +1,36 @@
 # eoq_f
-Project Work - Corso di Laurea in Informatico per le Aziende Digitali L31
-Tema n. 1 La digitalizzazione dell’impresa
-Traccia 1.1 Lotto Economico di Ordinazione (EOQ) per materiali a domanda
-indipendente
-Autore: Andrea D'Orazio (matricola 0312300107)
-Anno accademico : 2024/2025
+## Project Work - Corso di Laurea in Informatico per le Aziende Digitali L31
+## Tema n. 1 La digitalizzazione dell’impresa
+## Traccia 1.1 Lotto Economico di Ordinazione (EOQ) per materiali a domanda indipendente
+**Autore: Andrea D'Orazio (matricola 0312300107)**
+*Anno accademico : 2024/2025*
 
 Applicazione web per il calcolo del Lotto Economico di Ordinazione
-Tecnologia utilizzata:
+**Tecnologia utilizzata:**
 HTML5, CSS Bootstrap
 Javascript: NodeJS v18.18.0, Express, Bootstrap, ChartJS
 Python 3.8.10, Numpy, Pandas, StatsForecast
 
 
-*Installazione:
-Python
+**Installazione:**
+*Python*
 Installare python versione 3.8.10 o superiore e i seguenti pacchetti(controllare file requirements.txt)
 - Numpy
 - Pandas
 - StatsForecast
 
-NodeJS
+*NodeJS*
 Installare  nodejs versione 18 o superiore con i seguenti pacchetti:
 - Express
 
-Javascript
+*Javascript*
 Le librerie javascript necessarie sono già disponibili nella cartella /public/js
 - Bootstrap v5.3.3
 - ChartJS v4.4.7
 
-*Esecuzione in locale
+**Esecuzione in locale**
 Avviare l'applicazione Node con il comando 
-node app
+`node app`
 
 Accedere dal browser all'indirizzo http://localhost:3000
 Premere su EOQ per visualizzare la pagina per l'inserimento dei dati.
@@ -42,24 +41,23 @@ E' necessario inserire i dati relativi a :
 -Costo mantenimento (H)
 -Valore Domanda (D)
 
-I dati possono essere inseriti col pulsante |Aggiungi dati| per l'insermimento manuale di una 
-riga alla voltqa, oppure con il pulsante |Carica dati| per il caricamento da file csv con dati
-in serie storica.
+I dati possono essere inseriti col pulsante *Aggiungi dati* per l'insermimento manuale di una 
+riga alla volta, o in alternativa con il pulsante *Carica dati* per il caricamento da file csv con i dati relativi a più periodi.
 
+Il file deve essere struttura nel seguente modo :
+- intestazione con le variabili 
+  |periodo|valC|valS|valH|valD|
+- il separatore deve essere il punto e virgola `;` 
 
-!Il file deve essere struttura nel seguente modo :
-- intestazione con le variabili periodo;valC;valS;valH,;valD
-- il separatore deve essere il punto e virgola ';' 
+Per procedere con il calcolo premere sul pulsante *Calcola EOQ* .
+E' possibile spuntare la voce *Aggiungi proiezione* per aggiungere al calcolo la stima della domanda annua
+per il periodo t+1. La stima applica il modello di previsione AutoARIMA senza stagionalità *utilizzare solo per
+serie storiche superiori ai 15 periodi*.
 
-Per procedere con il calcolo premere sul pulsante |Calcola EOQ| .
-E' possibile spuntare la voce 'Aggiungi proiezione' per aggiungere al calcolo la stima della domanda annua
-per il periodo t+1. La stima applica il modello di previsione AutoARIMA senza stagionalità !utilizzare solo per
-serie storiche superiori ai 15 periodi.
-
-OUTPUT
+**OUTPUT**
 La tabella viene aggiornata con i dati relativi a :
 - valore EOQ
-- numero di lotti nel periodo (anno)
+- numero di lotti nel periodo
 - Costo totale, calcolato con la somma dei costi di mantenimento, ordinazione e acquisto
 - Grafici relativi andamento al valore di lotto economico di ordinazione e domanda annua
 
