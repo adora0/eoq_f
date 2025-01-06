@@ -1,13 +1,9 @@
 ## eoq_f
-**Project Work - Corso di Laurea in Informatico per le Aziende Digitali L31**
-
-**Tema n. 1 La digitalizzazione dell’impresa**
-
-**Traccia 1.1 Lotto Economico di Ordinazione (EOQ) per materiali a domanda indipendente**
-
-**Autore: Andrea D'Orazio (matricola 0312300107)**
-
-*Anno accademico : 2024/2025*
+**Project Work - Corso di Laurea in Informatico per le Aziende Digitali L31**  
+**Tema n. 1 La digitalizzazione dell’impresa**  
+**Traccia 1.1 Lotto Economico di Ordinazione (EOQ) per materiali a domanda indipendente**  
+**Autore: Andrea D'Orazio (matricola 0312300107)**  
+*Anno accademico : 2024/2025*  
 
 
 Applicazione web per il calcolo del Lotto Economico di Ordinazione
@@ -51,10 +47,10 @@ riga alla volta, o in alternativa con il pulsante *Carica dati* per il caricamen
 
 **Struttura del file .csv**
 Il file deve essere strutturato nel seguente modo :
-- intestazione con le variabili 
-| Periodo | valC | valS | valH | valD | 
+- intestazione con le variabili  | Periodo | valC | valS | valH | valD |  
 | --- | --- | --- | --- | --- |
 - il separatore deve essere il *punto e virgola* `;` 
+Nella cartella del progetto *dati_esempio* sono presenti dei file già predisposti per eseguire i test dell'applicazione.
 
 Per procedere con il calcolo premere sul pulsante *Calcola EOQ* .
 E' possibile spuntare la voce *Aggiungi proiezione* per aggiungere al calcolo la stima della domanda annua
