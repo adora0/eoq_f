@@ -5,14 +5,13 @@
 **Autore: Andrea D'Orazio (matricola 0312300107)**  
 *Anno accademico : 2024/2025*  
 
-
-Applicazione web per il calcolo del Lotto Economico di Ordinazione
+Applicazione web per il calcolo del Lotto Economico di Ordinazione  
 **Tecnologia utilizzata:**
 HTML5, CSS Bootstrap
 Javascript: NodeJS v18.18.0, Express, Bootstrap, ChartJS
-Python 3.8.10, Numpy, Pandas, StatsForecast
+Python 3.8.10, Numpy, Pandas, StatsForecast  
 
-
+Demo dell'applicazione disponibile all'indirizzo : http://82.165.144.82:3000/  
 ### Requisiti installazione:
 *Python*
 Installare python versione 3.8.10 o superiore e i seguenti pacchetti(controllare file *requirements.txt*)
@@ -47,9 +46,10 @@ riga alla volta, o in alternativa con il pulsante *Carica dati* per il caricamen
 
 **Struttura del file .csv**
 Il file deve essere strutturato nel seguente modo :
-- intestazione con le variabili  | Periodo | valC | valS | valH | valD |  
+- intestazione con le variabili  
+| Periodo | valC | valS | valH | valD |  
 | --- | --- | --- | --- | --- |
-- il separatore deve essere il *punto e virgola* `;` 
+- il separatore deve essere il *punto e virgola* `;`  
 Nella cartella del progetto *dati_esempio* sono presenti dei file già predisposti per eseguire i test dell'applicazione.
 
 Per procedere con il calcolo premere sul pulsante *Calcola EOQ* .
