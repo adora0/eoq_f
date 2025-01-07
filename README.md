@@ -70,3 +70,34 @@ Nel riquadro **Risultati elaborazione** verranno mostrati i valori dell'ultimo p
 - Costo totale per il periodo
 L' output è corredato di deu grafici relativi all'andamento del lotto economico di ordinazione e domanda annua
 
+### Struttura cartelle del progetto
+/eoq_f
+|-- /public
+|   |-- index.html
+|   |-- info.html
+|   |-- params.html
+|   |-- /css
+|       |-- bootstrap.min.css
+|       |-- bootstrap.min.css.map
+|       |-- stile.css
+|   |-- /js
+|       |-- bootstrap.bundle.min.js
+|       |-- bootstrap.bundle.min.js.map
+|       |-- chart.js
+|       |-- route.js
+|       |-- script.js
+|   |-- /images
+|       |-- garbage.png
+|       |-- home_img.png
+|-- /pyelab
+|   |-- eoq_elab.py
+|   |-- requirements.txt
+|-- /dati_esempio   
+|-- package.json
+|-- README.md
+
+**/public**: Contiene file pubblici accessibili direttamente dal browser, file CSS e JavaScript.  
+**/pyelab**: Contiene  il codice python per il calcolo dell'EOQ.  
+**/dati_esempio**: Contiene file csv di esempio per il calcolo dell'EOQ.  
+**package.json**: File di configurazione per il progetto, contiene dipendenze e script.  
+**README.md**: Documentazione del progetto.  
