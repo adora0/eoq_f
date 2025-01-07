@@ -97,7 +97,7 @@ L' output è corredato di deu grafici relativi all'andamento del lotto economico
 |-- package.json  
 |-- README.md  
 ```
-**/public**: Contiene file pubblici accessibili direttamente dal browser, file CSS e JavaScript.  
+**/public**: Contiene file pubblici accessibili direttamente dal browser, file HTML e sottocartelle per file CSS e JavaScript.  
 **/pyelab**: Contiene  il codice python per il calcolo dell'EOQ.  
 **/dati_esempio**: Contiene file csv di esempio per il calcolo dell'EOQ.  
 **package.json**: File di configurazione per il progetto, contiene dipendenze e script.  
