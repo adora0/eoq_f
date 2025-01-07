@@ -71,6 +71,7 @@ Nel riquadro **Risultati elaborazione** verranno mostrati i valori dell'ultimo p
 L' output è corredato di deu grafici relativi all'andamento del lotto economico di ordinazione e domanda annua
 
 ### Struttura cartelle del progetto  
+```plaintext
 /eoq_f  
 |-- /public  
 |   |-- index.html  
