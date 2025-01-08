@@ -31,7 +31,8 @@ const port = 3000;
  text, testo del messaggio
  tipo, tipologia messaggio (info, warn, errore)*/
 const log = function(text, tipo) {
-	return console.log('[' + tipo +'] ' + new Date().toLocaleTimeString() + ' - ' + text) ;
+	return console.log('[' + tipo +'] ' 
+        + new Date().toLocaleTimeString() + ' - ' + text) ;
 }
 
 /*imposto il folder public con le parti statiche dell'applicazione*/
