@@ -100,28 +100,3 @@ async function showInfo() {
         showAlert('Errore', 'Errore durante il richiamo della pagina di informazioni' + error);
     }
 }
-
-
-/****DA RIMUOVERE**************/
-/*************generaDati
-   Funzione per la generazione di una serie storica casuale.
-   Richiama l'endpoint /datidomanda per la generazione di una serie storica casuale.
-*/
-/*async function caricaDati() {
-    let numAnni = 20;
-    
-    try {        
-        const data = new URLSearchParams();
-        data.append("n",numAnni);
-        await fetch('/datidomanda', {
-            method: "POST",            
-            body: data
-        }).then(function (response) {
-            return response.text();
-        }).then(function(data){
-            inserisciDatiInTabella(data);
-        });
-    } catch (error) {
-        showAlert('Errore', 'Errore durante la generazione di dati' + error);
-    }
-}*/
