@@ -114,6 +114,7 @@ function caricaDatiDaFile() {
         const reader = new FileReader();
         reader.onload = function (e) {
             fileJSON = csvToJson(e.target.result);
+            
             if (fileJSON != '') {
                 /*inserisco i dati del file nella tabella HTML*/
                 inserisciDatiInTabella(fileJSON, true);

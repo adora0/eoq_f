@@ -40,9 +40,6 @@ def calcola_EOQ(df):
     #calcolo costi di ordinazione
     df["valCO"]=round((df["valD"]/df["valEOQ"])*df["valS"],0)
     #calcolo costo totale 
-    # df["valCT"]=round(((df["valD"]/df["valEOQ"])*df["valS"] ) 
-       #                  + (df["valH"] * (df["valEOQ"] / 2 )) 
-    #                     + (df["valEOQ"] * df["valC"]),0)
     df["valCT"]=df["valCM"] +df["valCO"] +  (df["valD"] * df["valC"])
     
     return df
