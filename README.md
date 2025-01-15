@@ -93,12 +93,14 @@ L' output è corredato di deu grafici relativi all'andamento del lotto economico
 |-- /pyelab  
 |   |-- eoq_elab.py  
 |   |-- requirements.txt  
-|-- /dati_esempio     
+|-- /dati_esempio    
+|-- /node_modules   
 |-- package.json  
 |-- README.md  
 ```
 **/public**: Contiene file pubblici accessibili direttamente dal browser, file HTML e sottocartelle per file CSS e JavaScript.  
 **/pyelab**: Contiene  il codice python per il calcolo dell'EOQ.  
 **/dati_esempio**: Contiene file csv di esempio per il calcolo dell'EOQ.  
+**/node_modules**: Librerie di NodeJS.  
 **package.json**: File di configurazione per il progetto, contiene dipendenze e script.  
 **README.md**: Documentazione del progetto.  
